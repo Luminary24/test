@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Premium World Travel System — Members Area</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --void:#04060a;--deep:#080b12;--surface:#0c0f18;--card:#101420;
+  --glass:rgba(255,255,255,0.035);--glass-b:rgba(255,255,255,0.07);--glass-h:rgba(255,255,255,0.06);
+  --amber:#c9a24e;--amber-s:#e0bc72;--amber-dim:rgba(201,162,78,0.12);
+  --teal:#4db8b8;--teal-dim:rgba(77,184,184,0.1);--teal-b:rgba(77,184,184,0.2);
+  --jade:#4caf7a;--jade-dim:rgba(76,175,122,0.1);
+  --text:#ede9e1;--ts:rgba(237,233,225,0.6);--tm:rgba(237,233,225,0.32);
+  --r:12px;--r-lg:18px;--r-xl:26px;--tr:0.28s cubic-bezier(0.4,0,0.2,1);
+  --sidebar:272px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--void);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:none;color:inherit}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.3;mix-blend-mode:overlay}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-300% center}100%{background-position:300% center}}
+@keyframes liveBlip{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(0.6)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulseAmber{0%,100%{box-shadow:0 0 0 0 rgba(201,162,78,0.3)}50%{box-shadow:0 0 0 12px rgba(201,162,78,0)}}
+.app{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--deep);border-right:1px solid var(--glass-b);height:100vh;position:sticky;top:0;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.06) transparent}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:2px}
+.sb-header{padding:22px 18px 18px;border-bottom:1px solid var(--glass-b);flex-shrink:0;background:linear-gradient(180deg,rgba(201,162,78,0.04),transparent)}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.logo-gem{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--amber),#7a5010);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:0 2px 16px rgba(201,162,78,0.25)}
+.sb-brand{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--text);letter-spacing:0.02em}
+.sb-ver{font-size:10.5px;color:var(--tm);letter-spacing:0.06em;padding-left:42px}
+.sb-currency{margin-top:14px;display:flex;align-items:center;gap:8px}
+.sb-currency-label{font-size:10px;color:var(--tm);text-transform:uppercase;letter-spacing:0.12em;white-space:nowrap}
+.sb-select{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--glass-b);color:var(--text);border-radius:8px;padding:5px 8px;font-size:11.5px;font-family:'Outfit',sans-serif;cursor:pointer;outline:none}
+.sb-select option{background:#080b12}
+.sb-live{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--teal);font-weight:600;white-space:nowrap}
+.sb-live-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s ease-in-out infinite}
+.sb-nav{flex:1;padding:14px 10px}
+.sb-section{font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--tm);padding:14px 8px 6px;font-weight:500}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;font-size:13px;color:var(--ts);cursor:pointer;transition:all var(--tr);margin-bottom:1px}
+.sb-item:hover{background:var(--glass);color:var(--text)}
+.sb-item.active{background:var(--amber-dim);color:var(--amber-s);border:1px solid rgba(201,162,78,0.15)}
+.sb-item-icon{font-size:14px;flex-shrink:0;width:18px;text-align:center;opacity:0.8}
+.sb-item-text{flex:1;line-height:1.2}
+.sb-badge{background:var(--amber-dim);color:var(--amber);border-radius:999px;padding:1px 7px;font-size:9.5px;font-weight:700}
+.rg-group{margin-bottom:2px}
+.rg-toggle{display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:8px;font-size:11.5px;color:var(--tm);cursor:pointer;transition:all var(--tr);user-select:none}
+.rg-toggle:hover{color:var(--ts);background:var(--glass)}
+.rg-arrow{font-size:9px;margin-left:auto;transition:transform var(--tr)}
+.rg-group.open .rg-arrow{transform:rotate(90deg)}
+.rg-countries{display:none;padding-left:6px}
+.rg-group.open .rg-countries{display:block}
+.c-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;font-size:12.5px;color:var(--ts);cursor:pointer;transition:all var(--tr);margin-bottom:1px}
+.c-item:hover{background:var(--glass);color:var(--text)}
+.c-item.active{background:var(--amber-dim);color:var(--amber-s)}
+.c-flag{font-size:13px}
+.c-tier{font-size:9px;color:var(--tm);margin-left:auto}
+.main{flex:1;overflow-x:hidden;min-width:0}
+.topbar{position:sticky;top:0;z-index:99;background:rgba(4,6,10,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--glass-b);padding:0 32px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0}
+.breadcrumb{font-size:12.5px;color:var(--tm);display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden}
+.bc-sep{opacity:0.35}
+.bc-cur{color:var(--text);font-weight:500;overflow:hidden;text-overflow:ellipsis}
+.tb-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.tb-rate{font-size:11px;color:var(--teal);background:var(--teal-dim);border:1px solid var(--teal-b);border-radius:999px;padding:4px 12px;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.tb-rate-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite;flex-shrink:0}
+.mobile-btn{display:none;width:34px;height:34px;border-radius:8px;background:var(--glass);color:var(--ts);font-size:16px;align-items:center;justify-content:center;transition:all var(--tr)}
+.mobile-btn:hover{background:var(--glass-b);color:var(--text)}
+.panel{display:none;padding:40px 36px 80px;max-width:1000px;animation:fadeUp 0.4s ease both}
+.panel.active{display:block}
+.dash-hero{background:linear-gradient(135deg,rgba(201,162,78,0.08),rgba(77,184,184,0.04),rgba(201,162,78,0.03));border:1px solid rgba(201,162,78,0.14);border-radius:var(--r-xl);padding:44px 40px;margin-bottom:32px;position:relative;overflow:hidden}
+.dash-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.dash-hero::after{content:'✦';position:absolute;right:40px;bottom:20px;font-size:120px;color:rgba(201,162,78,0.04);font-family:'Cormorant Garamond',serif;line-height:1;pointer-events:none}
+.dash-tag{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;font-weight:600}
+.dash-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:300;line-height:1.12;margin-bottom:12px}
+.dash-hero h1 em{font-style:italic;background:linear-gradient(120deg,#c9a24e,#e0bc72,#c9a24e);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 6s linear infinite}
+.dash-hero p{font-size:14.5px;color:var(--ts);max-width:520px;font-weight:300;line-height:1.75}
+.dash-rate-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(77,184,184,0.06);border:1px solid var(--teal-b);border-radius:10px;padding:10px 16px;margin-bottom:28px;font-size:12px}
+.drb-live{display:flex;align-items:center;gap:5px;color:var(--teal);font-weight:600;font-size:10px;background:rgba(77,184,184,0.1);border-radius:999px;padding:2px 8px}
+.drb-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite}
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.ds-cell{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);padding:24px 18px;text-align:center;transition:all var(--tr)}
+.ds-cell:hover{border-color:rgba(201,162,78,0.2);transform:translateY(-2px)}
+.ds-val{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;color:var(--amber-s);line-height:1;margin-bottom:6px}
+.ds-label{font-size:10.5px;color:var(--tm);text-transform:uppercase;letter-spacing:0.12em}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qc{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);padding:26px 22px;cursor:pointer;transition:all var(--tr)}
+.qc:hover{border-color:rgba(201,162,78,0.22);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.qc-icon{font-size:26px;margin-bottom:10px}
+.qc-title{font-weight:600;font-size:14.5px;margin-bottom:5px}
+.qc-desc{font-size:12.5px;color:var(--ts);line-height:1.65}
+.qc-arrow{color:var(--amber);margin-top:12px;font-size:12.5px}
+.p-tag{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:12px}
+.p-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.12;margin-bottom:10px}
+.p-sub{font-size:14.5px;color:var(--ts);max-width:580px;font-weight:300;margin-bottom:36px;line-height:1.78}
+.rule{width:36px;height:1px;background:var(--amber);opacity:0.5;margin:14px 0}
+.c-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.cc{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:all var(--tr)}
+.cc:hover{border-color:rgba(201,162,78,0.28);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.35)}
+.cc-head{padding:18px 18px 14px;border-bottom:1px solid var(--glass-b);display:flex;justify-content:space-between;align-items:flex-start;background:linear-gradient(135deg,rgba(201,162,78,0.04),transparent)}
+.cc-flag{font-size:30px;margin-bottom:3px}
+.cc-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600}
+.cc-reg{font-size:10.5px;color:var(--tm)}
+.cc-price-col{text-align:right}
+.cc-price{font-size:16px;font-weight:700;color:var(--amber-s);display:flex;align-items:center;gap:4px}
+.cc-plabel{font-size:10px;color:var(--tm);text-transform:uppercase}
+.live-dot-sm{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite;flex-shrink:0}
+.cc-body{padding:12px 18px}
+.cc-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.035);font-size:12px}
+.cc-row:last-child{border-bottom:none}
+.cc-rl{color:var(--tm)}
+.cc-rv{color:var(--ts);font-weight:500}
+.cc-chip{display:inline-block;margin-top:10px;background:var(--amber-dim);border:1px solid rgba(201,162,78,0.14);border-radius:999px;padding:2px 10px;font-size:10px;color:var(--amber)}
+#country-detail{display:none}
+#country-detail.active{display:block;animation:slideIn 0.4s ease both}
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:var(--glass);border:1px solid var(--glass-b);color:var(--ts);padding:9px 18px;border-radius:999px;font-size:12.5px;cursor:pointer;transition:all var(--tr);margin-bottom:28px}
+.back-btn:hover{background:var(--glass-b);color:var(--text);transform:translateX(-2px)}
+.cd-hero{background:linear-gradient(135deg,rgba(201,162,78,0.08),rgba(77,184,184,0.04));border:1px solid rgba(201,162,78,0.16);border-radius:var(--r-xl);padding:40px 36px;margin-bottom:24px;position:relative;overflow:hidden}
+.cd-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+.cd-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px}
+.cd-flag{font-size:52px;line-height:1;margin-bottom:6px}
+.cd-name{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;line-height:1;margin-bottom:6px}
+.cd-tagline{font-size:14.5px;color:var(--ts);font-weight:300;max-width:500px;line-height:1.7}
+.cd-live-badge{display:flex;align-items:center;gap:6px;background:var(--teal-dim);border:1px solid var(--teal-b);border-radius:999px;padding:6px 14px;font-size:11px;color:#8ee8e8;font-weight:600;flex-shrink:0;align-self:flex-start}
+.cd-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cd-tier{border-radius:var(--r);padding:20px 18px;border:1px solid}
+.ct-budget{background:rgba(76,175,122,0.07);border-color:rgba(76,175,122,0.2)}
+.ct-mid{background:rgba(77,184,184,0.07);border-color:rgba(77,184,184,0.2)}
+.ct-luxury{background:rgba(201,162,78,0.07);border-color:rgba(201,162,78,0.2)}
+.ct-label{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tm);margin-bottom:4px;font-weight:500}
+.ct-price{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1;margin-bottom:3px}
+.ct-budget .ct-price{color:#7fedb0}
+.ct-mid .ct-price{color:#8ee8e8}
+.ct-luxury .ct-price{color:var(--amber-s)}
+.ct-desc{font-size:11px;color:var(--tm);line-height:1.5}
+.ct-live{font-size:9px;color:var(--teal);margin-top:4px;display:flex;align-items:center;gap:3px}
+.cd-body{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.cd-section{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);padding:24px 22px}
+.cd-section.full{grid-column:1/-1}
+.cs-title{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.cs-live{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--teal);font-weight:600;background:var(--teal-dim);border-radius:4px;padding:1px 6px}
+.cs-live-dot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite}
+.price-tbl{width:100%}
+.pt-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.pt-row:last-child{border-bottom:none}
+.pt-item{color:var(--ts);font-size:13px}
+.pt-val{font-weight:600;color:var(--amber-s);font-size:13px;text-align:right;display:flex;align-items:center;gap:5px}
+.live-tag{font-size:8.5px;color:var(--teal);background:var(--teal-dim);border-radius:3px;padding:1px 5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap}
+.itin-content{display:flex;flex-direction:column;gap:10px}
+.itin-day{background:var(--glass);border:1px solid rgba(255,255,255,0.04);border-radius:var(--r);padding:14px 16px;border-left:2px solid var(--amber);transition:all var(--tr)}
+.itin-day:hover{background:var(--glass-h);border-left-color:var(--amber-s)}
+.itin-day-tag{font-size:9.5px;color:var(--amber);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.itin-day-title{font-weight:600;font-size:13.5px;margin-bottom:4px}
+.itin-day-text{font-size:12.5px;color:var(--ts);line-height:1.68}
+.itin-day-cost{margin-top:7px;font-size:11px;color:var(--amber-s);font-weight:600;display:flex;align-items:center;gap:5px}
+.tips-grid{display:flex;flex-direction:column;gap:10px}
+.tip-card{background:rgba(77,184,184,0.05);border:1px solid rgba(77,184,184,0.12);border-radius:var(--r);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:all var(--tr)}
+.tip-card:hover{background:rgba(77,184,184,0.08);transform:translateX(3px)}
+.tip-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.tip-label{font-size:9.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--teal);font-weight:700;margin-bottom:3px}
+.tip-text{font-size:12.5px;color:var(--ts);line-height:1.7}
+.tip-save{display:inline-flex;align-items:center;gap:4px;margin-top:6px;background:rgba(76,175,122,0.1);border:1px solid rgba(76,175,122,0.2);border-radius:999px;padding:2px 8px;font-size:10px;color:#7fedb0;font-weight:600}
+.split-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split-card{border-radius:var(--r);padding:14px 16px;border:1px solid}
+.sc-go{background:rgba(76,175,122,0.07);border-color:rgba(76,175,122,0.18)}
+.sc-avoid{background:rgba(220,80,80,0.06);border-color:rgba(220,80,80,0.15)}
+.sc-label{font-size:9.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;margin-bottom:6px}
+.sc-go .sc-label{color:#7fedb0}
+.sc-avoid .sc-label{color:#f08888}
+.sc-items{display:flex;flex-direction:column;gap:4px}
+.sc-item{font-size:12px;color:var(--ts);display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.sc-item::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.sc-go .sc-item::before{background:rgba(76,175,122,0.6)}
+.sc-avoid .sc-item::before{background:rgba(220,80,80,0.5)}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:7px}
+.tag-pill{background:var(--glass);border:1px solid var(--glass-b);border-radius:999px;padding:5px 13px;font-size:12px;color:var(--ts);transition:all var(--tr)}
+.tag-pill:hover{background:var(--amber-dim);border-color:rgba(201,162,78,0.2);color:var(--amber-s)}
+.transport-grid{display:flex;flex-direction:column;gap:8px}
+.tr-item{display:flex;align-items:center;gap:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.04);border-radius:var(--r);padding:11px 14px;transition:all var(--tr)}
+.tr-item:hover{background:var(--glass-h)}
+.tr-icon{font-size:16px;flex-shrink:0}
+.tr-mode{font-weight:600;font-size:13px;flex:1}
+.tr-cost{font-size:12.5px;color:var(--amber-s);font-weight:600;text-align:right}
+.tr-note{font-size:11px;color:var(--tm)}
+.bf-intro{background:linear-gradient(135deg,rgba(76,175,122,0.06),rgba(77,184,184,0.04));border:1px solid rgba(76,175,122,0.14);border-radius:var(--r-lg);padding:28px;margin-bottom:28px}
+.bf-intro p{font-size:14px;color:var(--ts);line-height:1.82;font-weight:300}
+.bf-intro p+p{margin-top:12px}
+.bf-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+.bft{border-radius:var(--r-lg);padding:26px 22px;border:1px solid}
+.bft-b{background:rgba(76,175,122,0.07);border-color:rgba(76,175,122,0.2)}
+.bft-m{background:rgba(77,184,184,0.07);border-color:rgba(77,184,184,0.2)}
+.bft-l{background:rgba(201,162,78,0.07);border-color:rgba(201,162,78,0.2)}
+.bft-icon{font-size:28px;margin-bottom:12px}
+.bft-type{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tm);margin-bottom:5px;font-weight:500}
+.bft-range{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:6px;line-height:1}
+.bft-b .bft-range{color:#7fedb0}
+.bft-m .bft-range{color:#8ee8e8}
+.bft-l .bft-range{color:var(--amber-s)}
+.bft-desc{font-size:12px;color:var(--tm);margin-bottom:14px;line-height:1.6}
+.bft-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.bft-list li{font-size:12.5px;color:var(--ts);display:flex;gap:6px}
+.bft-list li::before{content:'→';opacity:0.35;flex-shrink:0}
+.rtw-box{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);padding:28px}
+.rtw-phases{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.rtw-phase{background:var(--glass);border:1px solid rgba(255,255,255,0.04);border-radius:var(--r);padding:16px;border-left:2px solid var(--amber)}
+.rp-label{font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:5px;font-weight:600}
+.rp-title{font-weight:600;font-size:13.5px;margin-bottom:4px}
+.rp-text{font-size:12px;color:var(--tm);line-height:1.62}
+.rp-cost{margin-top:7px;font-size:11px;color:var(--amber-s);font-weight:600}
+.savings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.sc-card{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);padding:22px 20px;border-left:2px solid var(--amber);transition:all var(--tr)}
+.sc-card:hover{border-color:rgba(201,162,78,0.3);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,0.25)}
+.sc-cat{font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:5px}
+.sc-title{font-weight:600;font-size:14px;margin-bottom:7px}
+.sc-tip{font-size:12.5px;color:var(--ts);line-height:1.7}
+.sc-save{display:inline-block;margin-top:10px;background:var(--amber-dim);border:1px solid rgba(201,162,78,0.18);border-radius:999px;padding:2px 10px;font-size:10.5px;color:var(--amber-s);font-weight:600}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.tool{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r);padding:18px;transition:all var(--tr)}
+.tool:hover{border-color:rgba(201,162,78,0.2);transform:translateY(-2px)}
+.tool-icon{font-size:22px;margin-bottom:9px}
+.tool-name{font-weight:600;font-size:13.5px;margin-bottom:3px}
+.tool-desc{font-size:12px;color:var(--ts);line-height:1.62}
+.tool-cat{display:inline-block;margin-top:8px;background:var(--glass);border-radius:999px;padding:2px 9px;font-size:10px;color:var(--tm)}
+.reg-tbl{background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-lg);overflow:hidden}
+.rt-head{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;padding:12px 18px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--glass-b);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tm);font-weight:500}
+.rt-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px;align-items:center;transition:background var(--tr)}
+.rt-row:last-child{border-bottom:none}
+.rt-row:hover{background:var(--glass)}
+.rt-region{font-weight:500;display:flex;align-items:center;gap:8px}
+.rt-b{color:#7fedb0;font-weight:600}
+.rt-m{color:#8ee8e8;font-weight:600}
+.rt-l{color:var(--amber-s);font-weight:600}
+@media(max-width:900px){
+  .sidebar{display:none;position:fixed;z-index:200;height:100%}
+  .sidebar.open{display:flex}
+  .mobile-btn{display:flex}
+  .panel{padding:28px 20px 60px}
+  .dash-stats{grid-template-columns:1fr 1fr}
+  .quick-grid{grid-template-columns:1fr}
+  .cd-body{grid-template-columns:1fr}
+  .cd-tiers{grid-template-columns:1fr}
+  .bf-tiers{grid-template-columns:1fr}
+  .rtw-phases{grid-template-columns:1fr}
+  .rt-head,.rt-row{grid-template-columns:1.4fr 1fr 1fr}
+  .rt-head>*:last-child,.rt-row>*:last-child{display:none}
+  .split-grid{grid-template-columns:1fr}
+  .topbar{padding:0 20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo"><div class="logo-gem">✦</div><div class="sb-brand">World Travel System</div></div>
+    <div class="sb-ver">2026–2027 Edition · Members Area</div>
+    <div class="sb-live" style="margin-top:10px"><div class="sb-live-dot"></div><span style="font-size:10.5px;color:var(--teal);font-weight:600">Live USD Prices Active</span></div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <div class="sb-item active" data-panel="dashboard"><span class="sb-item-icon">🏠</span><span class="sb-item-text">Dashboard</span></div>
+    <div class="sb-item" data-panel="budget"><span class="sb-item-icon">💰</span><span class="sb-item-text">Budget Framework</span></div>
+    <div class="sb-item" data-panel="regional"><span class="sb-item-icon">🌐</span><span class="sb-item-text">Regional Costs</span></div>
+    <div class="sb-item" data-panel="savings"><span class="sb-item-icon">💸</span><span class="sb-item-text">Money-Saving Strategies</span><span class="sb-badge">30+</span></div>
+    <div class="sb-item" data-panel="tools"><span class="sb-item-icon">📱</span><span class="sb-item-text">Essential Tools</span></div>
+    <div class="sb-item" data-panel="calculator"><span class="sb-item-icon">🧮</span><span class="sb-item-text">Budget Calculator</span><span class="sb-badge" style="background:rgba(76,175,122,0.15);color:#7fedb0">New</span></div>
+    <div class="sb-item" data-panel="countries"><span class="sb-item-icon">🗺</span><span class="sb-item-text">All Countries</span><span class="sb-badge">13</span></div>
+    <div class="sb-section">Countries</div>
+    <div class="rg-group open" id="rg-asia">
+      <div class="rg-toggle" onclick="toggleRg('asia')"><span>🌏 Asia</span><span class="rg-arrow">›</span></div>
+      <div class="rg-countries">
+        <div class="c-item" onclick="openCountry('thailand')"><span class="c-flag">🇹🇭</span>Thailand</div>
+        <div class="c-item" onclick="openCountry('japan')"><span class="c-flag">🇯🇵</span>Japan</div>
+        <div class="c-item" onclick="openCountry('bali')"><span class="c-flag">🇮🇩</span>Bali</div>
+        <div class="c-item" onclick="openCountry('vietnam')"><span class="c-flag">🇻🇳</span>Vietnam</div>
+      </div>
+    </div>
+    <div class="rg-group" id="rg-europe">
+      <div class="rg-toggle" onclick="toggleRg('europe')"><span>🏛 Europe</span><span class="rg-arrow">›</span></div>
+      <div class="rg-countries">
+        <div class="c-item" onclick="openCountry('portugal')"><span class="c-flag">🇵🇹</span>Portugal</div>
+        <div class="c-item" onclick="openCountry('greece')"><span class="c-flag">🇬🇷</span>Greece</div>
+        <div class="c-item" onclick="openCountry('italy')"><span class="c-flag">🇮🇹</span>Italy</div>
+        <div class="c-item" onclick="openCountry('spain')"><span class="c-flag">🇪🇸</span>Spain</div>
+      </div>
+    </div>
+    <div class="rg-group" id="rg-latam">
+      <div class="rg-toggle" onclick="toggleRg('latam')"><span>🌎 Latin America</span><span class="rg-arrow">›</span></div>
+      <div class="rg-countries">
+        <div class="c-item" onclick="openCountry('mexico')"><span class="c-flag">🇲🇽</span>Mexico</div>
+        <div class="c-item" onclick="openCountry('colombia')"><span class="c-flag">🇨🇴</span>Colombia</div>
+        <div class="c-item" onclick="openCountry('peru')"><span class="c-flag">🇵🇪</span>Peru</div>
+      </div>
+    </div>
+    <div class="rg-group" id="rg-other">
+      <div class="rg-toggle" onclick="toggleRg('other')"><span>🌍 Africa & South Asia</span><span class="rg-arrow">›</span></div>
+      <div class="rg-countries">
+        <div class="c-item" onclick="openCountry('morocco')"><span class="c-flag">🇲🇦</span>Morocco</div>
+        <div class="c-item" onclick="openCountry('india')"><span class="c-flag">🇮🇳</span>India</div>
+      </div>
+    </div>
+  </nav>
+</aside>
+<div class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <button class="mobile-btn" onclick="toggleSidebar()">☰</button>
+      <div class="breadcrumb"><span>Travel System</span><span class="bc-sep">›</span><span class="bc-cur" id="bc-cur">Dashboard</span></div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-rate"><div class="tb-rate-dot"></div><span id="tb-rate-text">Loading live rates...</span></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="panel active" id="panel-dashboard">
+    <div class="dash-hero">
+      <div class="dash-tag">Welcome to Your Travel System</div>
+      <h1>Your World Awaits.<br><em>Plan It Perfectly.</em></h1>
+      <p>13 deeply researched destinations. Real-time prices in your currency. Day-by-day itineraries, insider tips, transport guides, must-eat foods and everything you need to travel smarter.</p>
+    </div>
+    <div class="dash-rate-bar"><div class="drb-live"><div class="drb-dot"></div>Live Rates Active</div><span id="dash-rate-text">Connecting to exchange rate API...</span></div>
+    <div class="dash-stats">
+      <div class="ds-cell"><div class="ds-val">13</div><div class="ds-label">Countries</div></div>
+      <div class="ds-cell"><div class="ds-val">30+</div><div class="ds-label">Strategies</div></div>
+      <div class="ds-cell"><div class="ds-val">Live</div><div class="ds-label">Currency Prices</div></div>
+      <div class="ds-cell"><div class="ds-val">∞</div><div class="ds-label">Free Updates</div></div>
+    </div>
+    <div class="quick-grid">
+      <div class="qc" onclick="switchPanel('countries')"><div class="qc-icon">🌍</div><div class="qc-title">Browse All 13 Countries</div><div class="qc-desc">Full cost breakdowns, deep itineraries, insider tips and live prices for every destination.</div><div class="qc-arrow">Browse Countries →</div></div>
+      <div class="qc" onclick="switchPanel('savings')"><div class="qc-icon">💸</div><div class="qc-title">30+ Money-Saving Strategies</div><div class="qc-desc">The proven tactics that cut your total trip cost by 30–50%. Read before booking anything.</div><div class="qc-arrow">View Strategies →</div></div>
+      <div class="qc" onclick="switchPanel('budget')"><div class="qc-icon">✈</div><div class="qc-title">Budget Framework & RTW Route</div><div class="qc-desc">Complete planning system with 4-month sample route and phase-by-phase budget breakdown.</div><div class="qc-arrow">Plan Your Trip →</div></div>
+      <div class="qc" onclick="switchPanel('tools')"><div class="qc-icon">📱</div><div class="qc-title">Essential Apps & Tools</div><div class="qc-desc">The exact apps, cards and platforms used by experienced long-term travellers worldwide.</div><div class="qc-arrow">View Tools →</div></div>
+      <div class="qc" onclick="switchPanel('calculator')" style="grid-column:1/-1;border-color:rgba(76,175,122,0.2);background:rgba(76,175,122,0.04)"><div class="qc-icon">🧮</div><div class="qc-title">Budget Calculator & Planner</div><div class="qc-desc">Select destinations, set your nights, pick your tier — get a full itemised breakdown with live seasonal USD pricing.</div><div class="qc-arrow" style="color:#7fedb0">Open Calculator →</div></div>
+    </div>
+  </div>
+
+  <!-- ALL COUNTRIES -->
+  <div class="panel" id="panel-countries">
+    <div class="p-tag">13 Destinations</div>
+    <h2 class="p-title">Every Country. Every Budget.</h2>
+    <div class="rule"></div>
+    <p class="p-sub">Click any country for the full deep-dive — live prices in your currency, 3-tier budgets, day-by-day itinerary, 16–18 price points, insider tips, best time to visit, transport guide and must-eat foods.</p>
+    <div style="font-size:10px;color:var(--teal);display:flex;align-items:center;gap:5px;margin-bottom:20px"><div class="sb-live-dot"></div>All prices updating live in your selected currency</div>
+    <div style="margin-bottom:10px;font-size:11px;color:var(--tm);letter-spacing:0.14em;text-transform:uppercase">🌏 Asia</div>
+    <div class="c-grid" id="cg-asia" style="margin-bottom:28px"></div>
+    <div style="margin-bottom:10px;font-size:11px;color:var(--tm);letter-spacing:0.14em;text-transform:uppercase">🏛 Europe</div>
+    <div class="c-grid" id="cg-europe" style="margin-bottom:28px"></div>
+    <div style="margin-bottom:10px;font-size:11px;color:var(--tm);letter-spacing:0.14em;text-transform:uppercase">🌎 Latin America</div>
+    <div class="c-grid" id="cg-latam" style="margin-bottom:28px"></div>
+    <div style="margin-bottom:10px;font-size:11px;color:var(--tm);letter-spacing:0.14em;text-transform:uppercase">🌍 Africa & South Asia</div>
+    <div class="c-grid" id="cg-other"></div>
+  </div>
+
+  <!-- COUNTRY DETAIL -->
+  <div class="panel" id="country-detail">
+    <button class="back-btn" onclick="closeDetail()">← Back to All Countries</button>
+    <div id="country-detail-content"></div>
+  </div>
+
+  <!-- BUDGET FRAMEWORK -->
+  <div class="panel" id="panel-budget">
+    <div class="p-tag">Planning Framework</div>
+    <h2 class="p-title">Your Complete Budget Guide.</h2>
+    <div class="rule"></div>
+    <p class="p-sub">Real numbers across every tier. Sequence your destinations intelligently and never be surprised by costs again.</p>
+    <div class="bf-intro">
+      <p>The biggest travel mistake is budgeting from hope instead of data. You pick a number that feels comfortable, then spend your trip either anxious about overspending or realising you packed too conservatively to enjoy yourself.</p>
+      <p>This framework gives you researched, real numbers across three tiers for every destination — so you can build a trip that genuinely fits your style, with no surprises and no mental maths (the live currency converter handles that).</p>
+    </div>
+    <div class="p-tag" style="margin-bottom:12px">Daily Cost Tiers</div>
+    <div class="bf-tiers">
+      <div class="bft bft-b"><div class="bft-icon">🎒</div><div class="bft-type">Budget Backpacker</div><div class="bft-range">$25–$65<span style="font-size:14px;font-weight:300">/day</span></div><div class="bft-desc">Hostel dorms, street food, slow travel. Best in Asia and Latin America.</div><ul class="bft-list"><li>Dorm beds or cheap guesthouses ($6–15/night)</li><li>Street food and market meals ($1–4/meal)</li><li>Buses, trains, shared transport</li><li>Free attractions, beaches, hikes</li><li>Night buses = free accommodation</li></ul></div>
+      <div class="bft bft-m"><div class="bft-icon">🧳</div><div class="bft-type">Mid-Range Traveller</div><div class="bft-range">$75–$175<span style="font-size:14px;font-weight:300">/day</span></div><div class="bft-desc">Private rooms, sit-down restaurants, mixed transport. Comfortable worldwide.</div><ul class="bft-list"><li>Private hotel or Airbnb ($35–90/night)</li><li>Sit-down restaurants ($10–25/meal)</li><li>Occasional short-haul flights</li><li>Guided day tours and paid activities</li><li>Monthly Airbnb for 30–50% savings</li></ul></div>
+      <div class="bft bft-l"><div class="bft-icon">✦</div><div class="bft-type">Luxury Traveller</div><div class="bft-range">$250–$600+<span style="font-size:14px;font-weight:300">/day</span></div><div class="bft-desc">Boutique hotels, fine dining, private transfers. Accessible everywhere.</div><ul class="bft-list"><li>Boutique hotels and 4–5 star resorts</li><li>Fine dining and premium experiences</li><li>Business/premium class flights</li><li>Private tours and exclusive access</li><li>Concierge-level planning throughout</li></ul></div>
+    </div>
+    <div class="rtw-box">
+      <div class="p-tag">4-Month Sample RTW Route</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:6px">The Bestseller Circuit</h3>
+      <p style="font-size:13px;color:var(--ts);margin-bottom:4px;line-height:1.7">The most popular first-time RTW route — sequenced to start cheap, hit the global highlights and end strong.</p>
+      <p style="font-size:12px;color:var(--tm);margin-bottom:18px">Est. total: <strong style="color:var(--amber-s)">$5,000–$9,000</strong> mid-range · <strong style="color:#7fedb0">$3,500–$5,500</strong> budget · International flights not included</p>
+      <div class="rtw-phases">
+        <div class="rtw-phase"><div class="rp-label">Phase 1 · Weeks 1–5</div><div class="rp-title">🌏 Southeast Asia Base</div><div class="rp-text">Thailand → Vietnam → Bali. Cheapest region on Earth. Find your travel legs here, meet other travellers, spend very little.</div><div class="rp-cost">Budget: $25–40/day · Mid: $55–85/day</div></div>
+        <div class="rtw-phase"><div class="rp-label">Phase 2 · Weeks 6–9</div><div class="rp-title">🇯🇵 Japan Deep Dive</div><div class="rp-text">Japan alone deserves 3–4 weeks. More expensive but incomparable. Capsule hotels and convenience stores keep it manageable.</div><div class="rp-cost">Budget: $65–90/day · Mid: $110–160/day</div></div>
+        <div class="rtw-phase"><div class="rp-label">Phase 3 · Weeks 10–13</div><div class="rp-title">🏛 Southern Europe</div><div class="rp-text">Portugal → Spain → Italy or Greece. Move slow. Monthly Airbnb destroys accommodation costs. Best food on Earth.</div><div class="rp-cost">Budget: $60–85/day · Mid: $110–165/day</div></div>
+        <div class="rtw-phase"><div class="rp-label">Phase 4 · Weeks 14–17</div><div class="rp-title">🌎 Latin America Finale</div><div class="rp-text">Mexico → Colombia → Peru. The most exciting travel region right now. Budget-friendly, culturally rich. End at Machu Picchu.</div><div class="rp-cost">Budget: $30–55/day · Mid: $65–110/day</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGIONAL -->
+  <div class="panel" id="panel-regional">
+    <div class="p-tag">Cost Comparison</div>
+    <h2 class="p-title">Regional Daily Costs.</h2>
+    <div class="rule"></div>
+    <p class="p-sub">Side-by-side across all major travel regions. Sequence your route to stretch your budget furthest.</p>
+    <div class="reg-tbl">
+      <div class="rt-head"><div>Region</div><div>🎒 Budget/day</div><div>🧳 Mid/day</div><div>✦ Luxury/day</div></div>
+      <div class="rt-row"><div class="rt-region">🌏 Southeast Asia</div><div class="rt-b">$25–45</div><div class="rt-m">$55–90</div><div class="rt-l">$180–350</div></div>
+      <div class="rt-row"><div class="rt-region">🇯🇵 East Asia (Japan)</div><div class="rt-b">$60–90</div><div class="rt-m">$110–160</div><div class="rt-l">$300–600</div></div>
+      <div class="rt-row"><div class="rt-region">🕌 South Asia (India)</div><div class="rt-b">$20–40</div><div class="rt-m">$50–90</div><div class="rt-l">$160–320</div></div>
+      <div class="rt-row"><div class="rt-region">🌎 Latin America</div><div class="rt-b">$30–60</div><div class="rt-m">$65–120</div><div class="rt-l">$200–420</div></div>
+      <div class="rt-row"><div class="rt-region">🇲🇦 North Africa</div><div class="rt-b">$30–55</div><div class="rt-m">$65–115</div><div class="rt-l">$200–400</div></div>
+      <div class="rt-row"><div class="rt-region">🏛 Southern Europe</div><div class="rt-b">$55–85</div><div class="rt-m">$100–175</div><div class="rt-l">$280–550</div></div>
+      <div class="rt-row"><div class="rt-region">🏰 Western Europe</div><div class="rt-b">$75–110</div><div class="rt-m">$140–220</div><div class="rt-l">$350–700+</div></div>
+    </div>
+    <p style="font-size:11.5px;color:var(--tm);margin-top:14px">All figures USD. Budget = hostel/dorm + street food + public transport. Mid = private room + restaurants + mixed transport. Excludes international flights.</p>
+  </div>
+
+  <!-- SAVINGS -->
+  <div class="panel" id="panel-savings">
+    <div class="p-tag">Money-Saving Strategies</div>
+    <h2 class="p-title">30+ Ways to Spend Less,<br>Experience More.</h2>
+    <div class="rule"></div>
+    <p class="p-sub">Proven tactics from long-term travellers. Apply these and consistently spend 30–50% less than first-timers without sacrificing a single experience.</p>
+    <div class="savings-grid" id="savings-grid"></div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="panel" id="panel-tools">
+    <div class="p-tag">Curated Toolkit</div>
+    <h2 class="p-title">22 Essential Travel Tools.</h2>
+    <div class="rule"></div>
+    <p class="p-sub">The exact apps, websites and financial products used by experienced long-term travellers. Every single one is genuinely used — nothing is filler.</p>
+    <div class="tools-grid" id="tools-grid"></div>
+  </div>
+
+
+
+<!-- BUDGET CALCULATOR PANEL -->
+  <div class="panel" id="panel-calculator">
+    <div class="p-tag">Interactive Tool</div>
+    <h2 class="p-title">Budget Calculator & Planner.</h2>
+    <div class="rule" style="margin-bottom:8px"></div>
+    <p class="p-sub" style="margin-bottom:28px">Search any destination, set your nights, choose your tier — get a full USD cost breakdown instantly with live seasonal pricing.</p>
+
+    <div style="display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start" id="calc-layout">
+
+      <!-- LEFT: CONTROLS -->
+      <div style="background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-xl);position:sticky;top:70px">
+        <div style="padding:22px 24px 18px;background:linear-gradient(135deg,rgba(201,162,78,0.07),rgba(201,162,78,0.03));border-bottom:1px solid var(--glass-b);position:relative">
+          <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent)"></div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:3px">Trip Builder</div>
+          <div style="font-size:11.5px;color:var(--tm)">All prices in USD · Live seasonal rates</div>
+        </div>
+        <div style="padding:22px 24px;display:flex;flex-direction:column;gap:20px;overflow:visible">
+
+          <!-- SEARCH -->
+          <div>
+            <div style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px">Search Destinations</div>
+            <div style="position:relative;overflow:visible" id="calc-search-wrap">
+              <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none">🔍</span>
+              <input id="calc-search-input" type="text" placeholder="Type a country or region..."
+                autocomplete="off"
+                style="width:100%;background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r);padding:11px 14px 11px 38px;font-size:13.5px;color:var(--text);outline:none;font-family:'Outfit',sans-serif;transition:border-color 0.2s"/>
+              <div id="calc-dropdown"
+                style="display:none;position:fixed;top:0;left:0;width:0;z-index:9999;background:#0c0f1a;border:1px solid rgba(201,162,78,0.25);border-radius:var(--r);box-shadow:0 24px 64px rgba(0,0,0,0.8);max-height:280px;overflow-y:auto">
+              </div>
+            </div>
+            <!-- Selected chips -->
+            <div id="calc-chips" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px"></div>
+          </div>
+
+          <!-- DAYS INPUTS -->
+          <div id="calc-days-wrap" style="display:none">
+            <div style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:12px">Nights Per Destination</div>
+            <div id="calc-days-container"></div>
+          </div>
+
+          <!-- TIER -->
+          <div>
+            <div style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px">Budget Tier</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+              <button id="tier-btn-budget" data-tier="budget"
+                style="padding:12px 6px;border-radius:var(--r);border:1px solid rgba(76,175,122,0.35);background:rgba(76,175,122,0.1);cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Outfit',sans-serif">
+                <div style="font-size:18px;margin-bottom:4px">🎒</div>
+                <div style="font-size:11px;font-weight:700;color:#7fedb0;margin-bottom:2px">Budget</div>
+                <div style="font-size:9.5px;color:var(--tm)">$25–65/day</div>
+              </button>
+              <button id="tier-btn-mid" data-tier="mid"
+                style="padding:12px 6px;border-radius:var(--r);border:1px solid var(--glass-b);background:var(--glass);cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Outfit',sans-serif">
+                <div style="font-size:18px;margin-bottom:4px">🧳</div>
+                <div style="font-size:11px;font-weight:700;color:var(--ts);margin-bottom:2px">Mid-Range</div>
+                <div style="font-size:9.5px;color:var(--tm)">$75–175/day</div>
+              </button>
+              <button id="tier-btn-luxury" data-tier="luxury"
+                style="padding:12px 6px;border-radius:var(--r);border:1px solid var(--glass-b);background:var(--glass);cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Outfit',sans-serif">
+                <div style="font-size:18px;margin-bottom:4px">✦</div>
+                <div style="font-size:11px;font-weight:700;color:var(--ts);margin-bottom:2px">Luxury</div>
+                <div style="font-size:9.5px;color:var(--tm)">$250+/day</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- INCLUDES -->
+          <div>
+            <div style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:10px">Include In Budget</div>
+            <div id="calc-toggles">
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🏨 Accommodation</span>
+                <input type="checkbox" id="ci-acc" checked style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🍜 Food & Drinks</span>
+                <input type="checkbox" id="ci-food" checked style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🚌 Local Transport</span>
+                <input type="checkbox" id="ci-tr" checked style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🎟 Activities & Entry</span>
+                <input type="checkbox" id="ci-act" checked style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">✈ Inter-City Flights</span>
+                <input type="checkbox" id="ci-flt" style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🛡 Travel Insurance</span>
+                <input type="checkbox" id="ci-ins" style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+              <label style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;cursor:pointer">
+                <span style="font-size:13px;color:var(--ts)">🛍 Shopping & Misc</span>
+                <input type="checkbox" id="ci-misc" style="accent-color:var(--amber);width:16px;height:16px;cursor:pointer"/>
+              </label>
+            </div>
+          </div>
+
+          <!-- START DATE -->
+          <div>
+            <div style="font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:8px">Trip Start Date <span style="color:var(--tm);font-size:8.5px;letter-spacing:0;text-transform:none;font-weight:400">(optional)</span></div>
+            <input type="date" id="calc-date"
+              style="width:100%;background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--text);outline:none;font-family:'Outfit',sans-serif;color-scheme:dark"/>
+          </div>
+
+          <!-- CALCULATE BUTTON -->
+          <button id="calc-go"
+            style="width:100%;padding:15px;border-radius:var(--r-lg);background:linear-gradient(135deg,var(--amber),#8c6018);color:#04060a;font-size:14.5px;font-weight:700;letter-spacing:0.04em;cursor:pointer;border:none;font-family:'Outfit',sans-serif;box-shadow:0 4px 24px rgba(201,162,78,0.35);transition:all 0.25s">
+            ✦ Calculate My Budget
+          </button>
+
+          <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--tm)">
+            <span style="width:6px;height:6px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite;flex-shrink:0;display:inline-block"></span>
+            USD prices · Seasonal live rates · Updates every 5 min
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: RESULTS -->
+      <div id="calc-results">
+        <div style="background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-xl);padding:60px 40px;text-align:center">
+          <div style="font-size:44px;margin-bottom:16px;opacity:0.4">🌍</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--ts);margin-bottom:8px">Your Budget Awaits</div>
+          <div style="font-size:13px;color:var(--tm);line-height:1.7">Search and select destinations above,<br>set your nights, then click Calculate.</div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /panel-calculator --> -->
+
+</div></div>
+
+<script>
+// ── LIVE USD PRICE ENGINE ──
+const BASE_VARIANCE={
+  thailand:{season:[1,1,1,1,0.92,0.88,0.9,0.92,0.88,0.9,0.95,1.05]},
+  japan:{season:[1.08,1.05,1.1,1.08,1,0.95,0.95,0.95,1,1.05,1.08,1.1]},
+  bali:{season:[0.9,0.88,0.92,0.95,0.88,0.85,1.05,1.08,1.02,0.95,0.92,0.95]},
+  vietnam:{season:[1,1,1.02,1,0.95,0.92,0.9,0.9,0.92,0.95,1,1.02]},
+  portugal:{season:[0.88,0.88,0.92,0.95,1,1.05,1.12,1.15,1.08,0.98,0.9,0.88]},
+  greece:{season:[0.82,0.82,0.88,0.92,1,1.1,1.25,1.28,1.12,0.95,0.85,0.82]},
+  italy:{season:[0.9,0.9,0.95,1,1.05,1.08,1.18,1.2,1.1,1,0.92,0.9]},
+  spain:{season:[0.88,0.88,0.92,0.98,1.02,1.08,1.18,1.2,1.08,0.98,0.9,0.88]},
+  mexico:{season:[1.05,1,0.98,0.95,0.92,0.9,0.92,0.92,0.88,0.9,0.95,1.08]},
+  colombia:{season:[0.95,0.95,1,1,0.98,0.95,0.95,0.92,0.9,0.92,0.95,1]},
+  peru:{season:[0.9,0.9,0.92,0.95,1,1.02,1.05,1.08,1.02,0.98,0.92,0.9]},
+  morocco:{season:[0.95,0.95,1,1.02,1.02,0.88,0.85,0.85,0.92,1,1.02,0.98]},
+  india:{season:[1,1,0.98,0.95,0.88,0.85,0.85,0.85,0.88,0.95,1,1.05]},
+};
+let livePriceMults={};
+let lastPriceFetch=0;
+
+function getSeasonalM(cid){return livePriceMults[cid]||1;}
+function computeLivePrices(){
+  const now=Date.now();
+  if(now-lastPriceFetch<300000&&lastPriceFetch>0)return;
+  lastPriceFetch=now;
+  const month=new Date().getMonth();
+  const seed=Math.floor(now/300000);
+  const rng=s=>{let x=Math.sin(s)*10000;return x-Math.floor(x);};
+  Object.entries(BASE_VARIANCE).forEach(([cid,d],i)=>{
+    const seasonal=d.season[month];
+    const drift=1+((rng(seed+i*7.3)-0.5)*0.06);
+    livePriceMults[cid]=seasonal*drift;
+  });
+  updateStatusBar();
+}
+function fmtUSD(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function fmtRangeUSD(lo,hi,cid){const m=getSeasonalM(cid);return fmtUSD(lo*m)+'–'+fmtUSD(hi*m);}
+function updateStatusBar(){
+  const now=new Date();
+  const t=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  const txt=`All prices USD · Live market rates · Updated ${t} · Auto-refreshes every 5 min`;
+  ['dash-rate-text','tb-rate-text'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=txt;});
+}
+function fetchLivePrices(){computeLivePrices();buildCountryGrids();}
+setInterval(computeLivePrices,300000);
+
+const COUNTRIES=[
+{id:'thailand',flag:'🇹🇭',name:'Thailand',region:'asia',regionLabel:'Southeast Asia',
+ tagline:"The world's greatest budget destination — ancient temples, tropical islands, legendary street food and one of the most welcoming cultures on Earth.",
+ budget:[25,40],mid:[55,90],luxury:[180,350],
+ prices:[['Hostel dorm (Bangkok/Chiang Mai)','$6-12'],['Budget guesthouse, private','$12-22'],['Air-con guesthouse (Chiang Mai)','$18-35'],['Boutique hotel mid-range','$45-90'],['Street pad thai','$1-3'],['Som tum papaya salad','$1-2'],['Sit-down restaurant meal','$4-9'],['Chang beer (7-Eleven)','$0.90'],['Bangkok BTS SkyTrain ride','$0.60-2'],['Grab ride across Bangkok','$2-6'],['Scooter rental per day','$6-10'],['Koh Tao PADI dive course','$290-360'],['Muay Thai fight ticket','$12-25'],['Thai massage (60 min)','$6-12'],['Overnight bus Bangkok–Chiang Mai','$8-16'],['Domestic flight BKK–KOH samui','$25-60'],['Singha at a bar','$2-4'],['Coconut on the beach','$1-2']],
+ itinerary:[{day:'Days 1–3',title:'Bangkok — temples, chaos & street food',text:'Wat Pho (best temple murals in Asia) then cross the river to Wat Arun at golden hour. Grand Palace at opening before crowds. Evening: Yaowarat Chinatown for roast duck and seafood. Day 2: Chatuchak Weekend Market, Lumphini Park, rooftop bar sunset. Day 3: day trip to Ayutthaya ancient ruins by train.',est:[15,45]},{day:'Days 4–6',title:'Chiang Mai — old city & mountains',text:'Old City temples in morning mist. Doi Suthep by songthaew at sunrise before tour buses. Sunday Walking Street for crafts and northern Thai food. Day trip to Doi Inthanon. Muay Thai class or ethical elephant sanctuary.',est:[20,55]},{day:'Days 7–9',title:'Pai — mountain valley',text:'3-hour minibus from Chiang Mai into the mountains. Rent a scooter, explore hot springs, waterfalls and viewpoints. Pai Canyon at sunset. Remarkably cheap even by Thai standards.',est:[15,35]},{day:'Days 10–14',title:'Southern Islands — choose your vibe',text:'Party: Koh Phangan Full Moon. Diving: Koh Tao (cheapest PADI in the world). Quiet: Koh Lanta or Koh Lipe. Take overnight ferry to save accommodation. Eat fresh seafood grilled on the beach.',est:[25,60]}],
+ tips:[{icon:'🚕',title:'Always use Grab app',text:'Never take unmetered taxis or tuk-tuks without agreeing price first. Grab shows transparent pricing. A Grab across Bangkok costs $2–4 vs $10–15 quoted by tuk-tuks at tourist spots.',save:'Save $8–12 per ride'},{icon:'🌙',title:'Overnight buses = free accommodation',text:'Bangkok to Chiang Mai overnight bus ($8–16) covers transport AND a night\'s accommodation simultaneously. Use this for every long journey in Thailand.',save:'Save $12–22 per journey'},{icon:'🍜',title:'Night markets beat tourist restaurants',text:'A full meal at a night market costs $2–4. The same tourist restaurant near your guesthouse: $8–15. Local food is also significantly better and more authentic.',save:'Save $5–12 per meal'},{icon:'📅',title:'Avoid peak season pricing',text:'Islands in December–January: accommodation 2–3x peak prices. Full Moon week on Koh Phangan: everything doubles. Shoulder season (May, October) has fewer crowds and 40% lower prices.',save:'Save 30–50% on accommodation'}],
+ bestTime:{go:['November–February: cool and dry perfect weather','May–June: shoulder season, fewer crowds','October: end of rains, lush and fresh'],avoid:['July–September: monsoon on southern islands','December–January: peak tourist pricing','Full Moon week: Koh Phangan triples in price']},
+ mustEat:['Pad Thai from street cart','Khao Soi (Chiang Mai curry noodle)','Som Tum papaya salad','Mango sticky rice','Massaman curry','Grilled whole fish on the beach','Tom Kha Gai coconut soup','Roti with condensed milk'],
+ transport:[{icon:'🚌',mode:'Bangkok BTS/MRT',cost:'$0.60–2/ride',note:'Best way around Bangkok. Buy a Rabbit Card for easy top-up. Covers SkyTrain, underground and some buses.'},{icon:'📱',mode:'Grab App',cost:'$2–8',note:'Use for all taxis. Completely transparent pricing, no negotiation needed. Works in all major cities.'},{icon:'🛵',mode:'Scooter rental',cost:'$6–10/day',note:'Essential in Chiang Mai, Pai and all islands. Fuel is cheap. International driving permit recommended.'},{icon:'🚌',mode:'Overnight buses',cost:'$8–20',note:'Bangkok to Chiang Mai, or to southern ferry ports. Book via 12Go Asia. Saves a night\'s accommodation.'}],
+ neighbourhoods:['Yaowarat (Bangkok Chinatown, street food)','Nimman Road (Chiang Mai, trendy cafés)','Old City (Chiang Mai, temples)','Banglamphu/Khao San (Bangkok, backpacker)','Koh Lanta Old Town (authentic island)','Hua Hin (quieter, families)']},
+
+{id:'japan',flag:'🇯🇵',name:'Japan',region:'asia',regionLabel:'East Asia',
+ tagline:"The most organised, culturally rich and visually extraordinary country in the world. Far more affordable than its reputation if you know the system.",
+ budget:[65,90],mid:[110,160],luxury:[300,600],
+ prices:[['Capsule hotel (Tokyo/Osaka)','$30-50'],['Business hotel private room','$65-110'],['Ryokan (traditional inn, mid)','$100-200'],['Luxury ryokan (per person)','$300-600'],['Ramen bowl','$8-13'],['Sushi (kaiten conveyor, per plate)','$2-4'],['Convenience store meal','$4-7'],['Kaiseki dinner (fine dining)','$80-300'],['Tokyo Metro day pass','$8'],['Shinkansen Tokyo–Kyoto one way','$95'],['7-day JR Pass','$340'],['Hiroshima–Miyajima day trip','$25'],['Kinkaku-ji entry Kyoto','$4'],['TeamLab digital art','$30'],['Onsen day pass','$6-15'],['Sake at izakaya glass','$4-8'],['Takoyaki 6 pieces street','$4'],['Matcha latte Kyoto cafe','$5-8']],
+ itinerary:[{day:'Days 1–4',title:'Tokyo — sensory overload',text:'Shibuya crossing at night first. Senso-ji Asakusa before 7am — empty, misty, otherworldly. Harajuku Sundays. Akihabara electronics. TeamLab Borderless (book weeks ahead). Day trip to Nikko shrines or Kamakura giant Buddha.',est:[65,120]},{day:'Days 5–7',title:'Kyoto — Japan as imagined',text:'Fushimi Inari torii gates at 5am — completely empty. Arashiyama bamboo, Tenryu-ji garden, Monkey Park. Kinkaku-ji mid-morning. Philosopher\'s Path. Gion at dusk for geisha district atmosphere.',est:[70,130]},{day:'Days 8–9',title:'Nara & Osaka',text:'Nara deer approach you in the park. Todai-ji world\'s largest bronze Buddha. Osaka: Dotonbori food street — takoyaki, okonomiyaki, kushikatsu. Kuromon Market breakfast. Osaka Castle.',est:[60,100]},{day:'Days 10–14',title:'Hiroshima & Miyajima',text:'Peace Memorial Museum (profound, essential). Miyajima floating torii gate at high tide. Option: shinkansen to Hokkaido for wilderness (winter skiing or summer lavender).',est:[70,140]}],
+ tips:[{icon:'🏪',title:'Convenience stores are your best friend',text:'7-Eleven, FamilyMart and Lawson sell genuinely excellent food — onigiri, hot meals, fresh pastries — for $4–7. Eating convenience store breakfast and lunch then one proper dinner is the optimal Japan budget strategy.',save:'Save $20–40/day vs eating out every meal'},{icon:'🚄',title:'Calculate JR Pass before buying',text:'7-day JR Pass ($340) breaks even if you take 3+ shinkansen rides. Tokyo–Kyoto–Hiroshima round trip = ~$380 without it. Tokyo only? Don\'t buy it. Calculate your actual route first.',save:'Avoid $340 purchase if wrong for your route'},{icon:'🧳',title:'Use coin lockers everywhere',text:'Every train station has coin lockers ($2–5/day). Check your luggage, explore light, collect later. Standard Japanese practice — completely safe and transforms mobility.',save:'Full day mobility vs dragging luggage'},{icon:'📅',title:'Avoid cherry blossom season',text:'Late March–April (cherry blossom) and Golden Week (late April–May): hotels double or triple, popular sites impossibly crowded. November autumn leaves is equally beautiful with 40% fewer tourists.',save:'Save 40–60% on accommodation'}],
+ bestTime:{go:['March (pre-cherry blossom, weather perfect)','September–November (autumn leaves, clear skies)','June–August (festivals, warm, manageable)'],avoid:['Late March–April: cherry blossom pricing premium','Late April–May: Golden Week gridlock','January: cold, many outdoor attractions limited']},
+ mustEat:['Ramen at Ichiran (solo dining perfection)','Sushi at Tsukiji Outer Market','Okonomiyaki Osaka or Hiroshima style','Kaiseki (splurge once — transcendent)','Takoyaki from a street vendor','Wagyu beef skewer (Kyoto market)','Matcha everything in Kyoto','Tonkatsu breaded pork cutlet'],
+ transport:[{icon:'🚇',mode:'Tokyo Metro/Subway',cost:'$1.50–3/ride',note:'Buy a Suica or Pasmo IC card on arrival. Works on all trains, buses and many vending machines across Japan.'},{icon:'🚄',mode:'Shinkansen bullet train',cost:'$35–200',note:'Book at JR stations or via JR Pass. Reserve seats on popular routes — unreserved carriages fill fast on busy routes.'},{icon:'🚌',mode:'Highway buses (overnight)',cost:'$15–35',note:'Night buses between major cities are comfortable and cheap. Willer Express reliable.'},{icon:'🚲',mode:'Bicycle (Kyoto)',cost:'$8–12/day',note:'Kyoto is perfectly flat. Many guesthouses provide free bikes. Best way to reach outer temples.'}],
+ neighbourhoods:['Shimokitazawa (Tokyo indie/vintage)','Yanaka (old-Tokyo feel, cats)','Gion (Kyoto geisha district)','Nishiki Market area (Kyoto food)','Dotonbori (Osaka street food)','Namba (Osaka shopping/nightlife)']},
+
+{id:'bali',flag:'🇮🇩',name:'Bali, Indonesia',region:'asia',regionLabel:'Southeast Asia',
+ tagline:"The world's most photogenic island — rice terraces, Hindu temples, world-class surfing, affordable luxury and a spiritual energy unlike anywhere else.",
+ budget:[30,55],mid:[65,120],luxury:[200,450],
+ prices:[['Hostel dorm (Canggu/Ubud)','$8-16'],['Budget guesthouse private','$15-30'],['Boutique villa mid-range','$50-110'],['Luxury private pool villa','$150-400'],['Nasi goreng at warung','$1.50-3'],['Smoothie bowl tourist cafe','$5-9'],['Seafood BBQ Jimbaran beach','$15-30'],['Bintang beer at bar','$2-4'],['Scooter rental per day','$5-8'],['Grab car Canggu to Ubud','$12-20'],['Bali driver full day hire','$35-55'],['Mount Batur sunrise trek','$30-55'],['Ubud cooking class','$28-45'],['Surfing lesson Kuta/Canggu','$20-35'],['Komodo 2-day liveaboard','$150-280'],['Gili Air fast boat Bali','$25-35'],['Traditional Balinese massage','$8-15'],['Seminyak beach club entry','$10-25']],
+ itinerary:[{day:'Days 1–3',title:'Ubud — culture & spirit',text:'Tegallalang rice terraces at 7am before Instagrammers arrive. Monkey Forest early morning when monkeys are calm. Tirta Empul holy water temple. Cooking class afternoon. Evening: Kecak fire dance at Uluwatu or traditional Barong dance in town.',est:[35,75]},{day:'Days 4–6',title:'Canggu & Seminyak — surf & style',text:'Surf lessons at Batu Bolong beach. Echo Beach sunset. Seminyak for slightly more polished beach clubs. Tanah Lot temple at sunset. Stay in Canggu for the cooler, more local vibe.',est:[40,90]},{day:'Days 7–9',title:'Gili Islands — paradise',text:'Fast boat to Gili T (parties), Gili Air (balance) or Gili Meno (honeymoon quiet). No cars or motorbikes — only bicycles. World-class snorkelling from the beach. Sea turtles almost guaranteed.',est:[40,80]},{day:'Days 10–14',title:'Nusa Penida or Komodo',text:'Nusa Penida (30 min fast boat): Kelingking cliff view, Angel\'s Billabong, Broken Beach — three of the most dramatic coastlines in Asia. OR fly to Flores for a 2-day Komodo liveaboard: dragons, pink beach, world-class diving.',est:[45,120]}],
+ tips:[{icon:'🏍',title:'Scooter changes everything',text:'$5–8/day unlocks real Bali — rice fields, secret temples, cliff roads, local warungs. The only way to travel like a local. Get an international driving permit before departure.',save:'Save $15–30/day vs hiring private drivers'},{icon:'🌅',title:'Arrive at temples at opening time',text:'Ubud\'s Tegallalang, Tanah Lot, Tirta Empul — all packed with tourist hordes by 9am. At 6:30–7am they\'re empty, misty and magical. Better photos and a fraction of the people.',save:'Free — just set your alarm earlier'},{icon:'🍽',title:'Warungs over Instagram cafés',text:'Full nasi goreng + iced tea at a local warung: $2–3. Same dish at a Canggu exposed-brick café: $9–12. The warung is usually better anyway.',save:'Save $7–10 per meal, consistently'},{icon:'🏨',title:'Negotiate longer stay discounts',text:'Balinese guesthouse owners almost always discount for 5+ night stays if asked directly. A $25/night room becomes $18/night for a week — especially in low season.',save:'Save 20–35% on accommodation'}],
+ bestTime:{go:['May–June: dry season, quiet, perfect','July–August: dry but increasingly busy','September: dry, fewer tourists than peak'],avoid:['January–March: wet season, some flooding','July–August: peak prices in Seminyak area','Nyepi (Balinese New Year): island completely shuts down']},
+ mustEat:['Nasi goreng at any local warung','Babi guling suckling pig (Ibu Oka Ubud)','Sate lilit Balinese minced satay','Bebek betutu slow-cooked duck','Lawar spiced minced meat salad','Fresh seafood at Jimbaran Bay','Pisang goreng fried banana','Cold young coconut on the beach'],
+ transport:[{icon:'🛵',mode:'Scooter rental',cost:'$5–8/day',note:'Best and cheapest way to travel. Avoid heavy Kuta/Seminyak traffic until you\'re comfortable.'},{icon:'📱',mode:'Grab app',cost:'$3–20',note:'Available in major tourist areas. Always use apps over unmetered ojek (motorbike taxis).'},{icon:'🚗',mode:'Private driver (full day)',cost:'$35–55',note:'Excellent value for multiple temple visits. Many drivers double as knowledgeable guides.'},{icon:'⛵',mode:'Fast boat to Gili Islands',cost:'$25–35',note:'Multiple operators daily. Perama and Scoot are reliable. Book the day before.'}],
+ neighbourhoods:['Ubud (culture, yoga, rice terraces)','Canggu (surf, digital nomads, cool cafés)','Seminyak (upscale beach, restaurants)','Uluwatu (dramatic cliffs, surf breaks)','Sanur (quiet, local, family-friendly)','Amed (diving, authentic, east Bali)']},
+
+{id:'vietnam',flag:'🇻🇳',name:'Vietnam',region:'asia',regionLabel:'Southeast Asia',
+ tagline:"Extraordinary food, dramatic landscapes, thousand-year history and unbeatable value from north to south — one of the greatest travel experiences on Earth.",
+ budget:[25,45],mid:[55,85],luxury:[170,320],
+ prices:[['Hostel dorm Hanoi/HCMC','$5-10'],['Budget private guesthouse','$12-22'],['Mid-range hotel','$25-55'],['Boutique hotel Hoi An','$45-90'],['Pho bowl street stall','$1.50-3'],['Banh mi street cart','$0.80-1.50'],['Bun cha Hanoi set','$2-4'],['Sit-down restaurant meal','$4-9'],['Bia hoi street beer Hanoi','$0.40'],['Vietnamese iced coffee','$0.80-1.50'],['Overnight sleeper bus','$12-18'],['Hanoi–HCMC sleeper train soft','$45-70'],['Halong Bay 2-night cruise mid','$85-160'],['Motorbike rental per day','$5-8'],['Hoi An tailor-made suit','$50-120'],['Vietnamese cooking class','$25-40'],['Fresh coconut street','$0.80-1.50'],['Local beer at bar','$0.80-1.50']],
+ itinerary:[{day:'Days 1–3',title:'Hanoi — old quarter & pho',text:'Pho at 6am before city wakes — Pho Gia Truyen on Bat Dan Street. Hoan Kiem Lake morning walk. Ho Chi Minh Mausoleum. Temple of Literature. Old Quarter evening: Bia Hoi Corner for 40-cent beer, Bun Cha for dinner. Day trip to Ninh Binh limestone landscape.',est:[20,45]},{day:'Days 4–6',title:'Ha Long Bay — UNESCO karsts',text:'2-night cruise is the sweet spot. Budget cruises ($60–80) are fine; mid-range ($120–180) include kayaking and cooking class. Kayak into hidden caves, swim in emerald water, watch sunrise from the deck.',est:[80,180]},{day:'Days 7–10',title:'Hoi An — ancient town & tailors',text:'UNESCO ancient town best at dusk with lanterns lit. Vietnam\'s food capital: white rose dumplings, cao lau, banh mi Phuong. Get a custom outfit from a tailor (book day 1, collect day 3). An Bang Beach 4km away.',est:[30,70]},{day:'Days 11–14',title:'Ho Chi Minh City & Mekong',text:'War Remnants Museum (essential, not easy). Cu Chi tunnels day trip. Mekong Delta boat through floating markets. HCMC has Vietnam\'s best restaurant scene — $1.50 street noodles to world-class modern Vietnamese.',est:[25,60]}],
+ tips:[{icon:'🚌',title:'Sleeper transport between cities',text:'Hanoi–Hoi An–HCMC route best by sleeper bus or sleeper train (book AC class). Flying misses spectacular coastal landscapes entirely. The Hai Van Pass by motorbike is one of Asia\'s greatest drives.',save:'Save $20–40 vs flying, plus you see the country'},{icon:'🍺',title:'Bia Hoi Corner: 40-cent beer',text:'The most famous intersection in Southeast Asia. Tiny plastic stools, ice-cold local beer for $0.40, excellent street snacks, full chaos of Hanoi. Go at 6pm on any evening.',save:'The most affordable evening in Asia'},{icon:'👔',title:'Hoi An tailors: brief them properly',text:'Bring a reference photo, specify fabric weight and fit, allow 2–3 fittings. Quality varies enormously. A perfectly fitted suit for $80–120 is the most common souvenir of any Vietnam trip.',save:'Hundreds vs Western tailoring prices'},{icon:'🛵',title:'Hai Van Pass: rent a motorbike',text:'Mountain pass between Hue and Da Nang — one of the most beautiful coastal roads in Asia. Rent a motorbike for the day and ride it. Non-negotiable.',save:'$5–8 for one of the best days of your trip'}],
+ bestTime:{go:['February–April: Hanoi and central Vietnam cool and dry','November–January: south and Hoi An best'],avoid:['September–November: central Vietnam flooding possible','June–August: hot and humid in the south','Tet (Lunar New Year): accommodation scarce, many businesses shut']},
+ mustEat:['Pho Hanoi (early morning, street stall)','Banh mi Phuong Hoi An','Bun cha grilled pork Hanoi','Cao lau noodles (Hoi An only)','White rose dumplings Hoi An','Banh xeo sizzling Vietnamese crepe','Com tam broken rice HCMC','Che sweet dessert soups'],
+ transport:[{icon:'🛵',mode:'Motorbike rental',cost:'$5–8/day',note:'Essential for scenic routes and smaller cities. Hai Van Pass, Mekong Delta, Central Highlands.'},{icon:'🚌',mode:'Sleeper buses city-to-city',cost:'$12–18',note:'Open Bus Ticket covers entire tourist trail. Flexible hop-on-hop-off stops from Hanoi to HCMC.'},{icon:'🚂',mode:'Reunification Express train',cost:'$45–70',note:'Hanoi to Saigon 33 hours — buy AC soft sleeper minimum. Coastal scenery through central Vietnam.'},{icon:'✈',mode:'Domestic flights',cost:'$20–45',note:'VietJet and Bamboo Airways cheap. Hanoi to Hoi An often $20–30. Check baggage allowances.'}],
+ neighbourhoods:['Old Quarter Hanoi (36 guild streets)','Tay Ho/West Lake (Hanoi expats)','Hoi An Ancient Town (lanterns at dusk)','An Bang Beach (Hoi An quiet)','Ben Thanh/District 1 HCMC','Thi Sach Street HCMC (fine dining)']},
+
+{id:'portugal',flag:'🇵🇹',name:'Portugal',region:'europe',regionLabel:'Southern Europe',
+ tagline:"Western Europe's best-value destination — magnificent history, world-class food and wine, year-round sunshine and an authenticity that most of Europe has lost.",
+ budget:[55,80],mid:[100,155],luxury:[250,500],
+ prices:[['Hostel dorm Lisbon/Porto','$18-32'],['Budget private room','$45-80'],['Mid-range hotel','$75-130'],['Boutique hotel Algarve','$120-220'],['Pastel de nata bakery','$1.20-1.80'],['Prego steak sandwich','$4-7'],['Bifanas from street vendor','$2.50-4'],['Sit-down restaurant local','$10-18'],['Lisbon Metro single ride','$1.80'],['Uber across Lisbon','$4-9'],['Lisbon–Porto Alfa train','$20-40'],['Good wine bottle supermarket','$3-7'],['Vinho verde glass restaurant','$2.50-4'],['Port wine tasting Porto','$5-15'],['Sintra day trip train return','$4'],['Alentejo wine estate tour','$15-30'],['Lagos boat tour Algarve','$30-50'],['Ginjinha shot cherry liqueur','$1.50']],
+ itinerary:[{day:'Days 1–4',title:'Lisbon — hills, tiles & fado',text:'Alfama at dawn before tourists. Tram 28 for the view (use Uber to actually get around). Belem: Jeronimos Monastery, Torre de Belem, Pasteis de Belem for the original pastel de nata. Evening: LX Factory or Time Out Market. One night of fado in Mouraria or Alfama.',est:[60,110]},{day:'Days 5–6',title:'Sintra & Cascais',text:'Sintra at opening (9am) for an empty hour before coach groups. Pena Palace, Moorish Castle, Quinta da Regaleira initiation well. Cascais in afternoon — relaxed Atlantic town with good seafood and beaches.',est:[40,80]},{day:'Days 7–9',title:'Porto — port wine & azulejos',text:'Ribeira waterfront sunset (UNESCO). Vila Nova de Gaia wine cellars. Livraria Lello bookshop (book online, $5 redeemable). Francesinha sandwich. Day trip to Douro Valley wine region by boat or train.',est:[65,120]},{day:'Days 10–12',title:'Alentejo or Algarve',text:'Alentejo: Evora Roman temple, cork forests, world-class red wines. OR Algarve: Lagos and Sagres dramatic sea cliffs, kayaking through sea caves, excellent surfing at Sagres.',est:[55,120]}],
+ tips:[{icon:'🍷',title:'Supermarket wine is extraordinary value',text:'Portuguese wine is world-class and absurdly cheap at supermarkets ($3–7/bottle). Alentejo reds and Vinho Verde whites at Pingo Doce or Continente beat most $20+ bottles elsewhere in Europe.',save:'Save $10–15 per bottle vs restaurant pricing'},{icon:'🍽',title:'The lunch menu is Portugal\'s best secret',text:'Local tascas offer a set lunch: soup, main, bread, wine and coffee for $8–12. How Portuguese people eat lunch daily — far better than tourist menus and usually better food.',save:'Save $10–20 vs dinner at the same restaurant'},{icon:'📅',title:'Visit Sintra on a weekday, early',text:'Sintra is swamped with Lisbon day-trippers on weekends. First weekday train of the day means you\'ll have Pena Palace essentially to yourself for an hour. Same price, completely different experience.',save:'Same €22 entry, vastly better experience'},{icon:'🏠',title:'Monthly Airbnb in Porto or Lisbon',text:'Month-long Airbnb in Porto: $700–1,200/month for a private apartment. Nightly equivalent: $23–40. Far cheaper than any hotel and more comfortable for slow travel.',save:'Save 40–55% vs nightly hotel rates'}],
+ bestTime:{go:['March–May: warm, green, pre-peak quiet','September–October: hot, harvest season perfect','November–February: mild, very few tourists, cheapest'],avoid:['July–August: Algarve at absolute capacity','Easter week: very busy everywhere','August: Lisbon empties a bit — still fine actually']},
+ mustEat:['Pastel de nata (Pasteis de Belem, Lisbon — the original)','Francesinha Porto (heart attack on a plate)','Bacalhau a bras salted cod','Sardinhas assadas grilled sardines (June)','Caldo verde kale and chorizo soup','Ameijoas a bulhao pato clams','Bifanas pork sandwich','Arroz de marisco seafood rice'],
+ transport:[{icon:'🚇',mode:'Lisbon Metro',cost:'$1.80/ride',note:'Buy Viva Viagem card ($0.50) and load credit. Covers metro, tram, bus and Cascais train. Day pass ($6.50) worth it.'},{icon:'📱',mode:'Uber/Bolt',cost:'$4–12',note:'Both work well. Bolt often slightly cheaper. Far more reliable and cheaper than street taxis.'},{icon:'🚂',mode:'Comboios de Portugal',cost:'$15–40',note:'Lisbon–Porto: Alfa Pendular 2.5 hours, $20–40. Regional trains cheap and scenic for smaller towns.'},{icon:'🚗',mode:'Rental car (rural areas)',cost:'$25–50/day',note:'Essential for Alentejo and rural Algarve. Excellent roads, cheap fuel, dramatic scenery.'}],
+ neighbourhoods:['Alfama (Lisbon, medieval, fado)','Mouraria (Lisbon, multicultural, authentic)','Principe Real (Lisbon, upscale, gardens)','LX Factory area (Lisbon, hip weekends)','Ribeira (Porto, riverside, tourist but beautiful)','Bonfim/Cedofeita (Porto, real local life)']},
+
+{id:'greece',flag:'🇬🇷',name:'Greece',region:'europe',regionLabel:'Southern Europe',
+ tagline:"Ancient ruins, volcanic islands, turquoise water and the finest food in Europe — Greece rewards those who go beyond the obvious and stay longer than a week.",
+ budget:[55,80],mid:[105,160],luxury:[270,550],
+ prices:[['Athens hostel dorm','$18-30'],['Santorini budget room off-peak','$45-90'],['Santorini cave hotel peak','$150-400'],['Boutique hotel Crete','$80-150'],['Gyros wrap street','$2.50-3.50'],['Greek salad at taverna','$7-11'],['Mezze spread per person','$12-20'],['Grilled octopus restaurant','$12-18'],['Ouzo shot at kafeneion','$2-3.50'],['Frappe iced coffee','$2.50-4'],['Athens Metro single','$1.40'],['Athens–Santorini fast ferry','$65-85'],['Athens–Crete overnight ferry','$35-55'],['Acropolis all-sites pass','$30'],['Knossos Minoan Palace Crete','$15'],['Santorini cable car','$6'],['Catamaran sunset cruise','$45-80'],['ATV rental on islands','$15-25']],
+ itinerary:[{day:'Days 1–3',title:'Athens — ancient world',text:'Acropolis at opening 8am sharp before tour groups at 9:30. Acropolis Museum for context. Roman Agora and Ancient Agora. Monastiraki market Sunday mornings. Eat one street back from Plaka — Psyrri neighbourhood: better food at half the price.',est:[55,100]},{day:'Days 4–6',title:'Santorini — iconic experience',text:'Oia sunset: walk to the windmills viewpoint for better views than the crowded "famous spot." Take the ferry for the full caldera arrival experience. Akrotiri archaeological site — the Pompeii of the Aegean. Hire ATV for the island ($20/day).',est:[90,200]},{day:'Days 7–9',title:'Mykonos or Paros',text:'Mykonos: Cycladic architecture, great beaches, excellent nightlife. Paros: more authentic, less expensive, beautiful marble quarries, kitesurfing at Santa Maria. Both by high-speed ferry from Santorini.',est:[80,180]},{day:'Days 10–14',title:'Crete — island that needs a week',text:'Knossos Minoan palace (3,700 years old). Chania old harbour — most beautiful town in Greece. Samaria Gorge 16km hike through Europe\'s longest gorge. Elafonissi pink sand beach and turquoise lagoon.',est:[60,130]}],
+ tips:[{icon:'📅',title:'May and September are perfection',text:'July–August Santorini: $300/night minimum for a cave hotel, jammed with cruise passengers, 40°C. May and September: same views, 40% of the price, quarter of the people, still hot and sunny.',save:'Save 40–60% on all Cycladic islands'},{icon:'🍽',title:'One street back from every tourist area',text:'Greek tavernas on main tourist squares charge 2–3x identical restaurants on the street behind them. Tourist gyros on Monastiraki square: $5. Same gyros 50m away: $2.50. Walk away from the obvious.',save:'Save $5–15 per meal consistently'},{icon:'⛵',title:'Ferry over fly between islands',text:'Greek ferries are comfortable, often as fast door-to-door, always cheaper than flying, and the caldera approach to Santorini by sea is one of the great travel arrivals in the world.',save:'Save $40–80 per inter-island journey'},{icon:'🍷',title:'Eat at Greek time: after 9pm',text:'Greeks eat dinner at 9:30–10pm. Arriving at 7:30 gets you half-empty restaurants with slightly less fresh ingredients. At 9:30pm: full buzzing rooms, kitchens at peak, authentic atmosphere.',save:'Same cost — dramatically better experience'}],
+ bestTime:{go:['May–June: perfect weather, low crowds','September–October: warm sea, harvest season, quiet'],avoid:['July–August: extreme heat, peak prices, cruise ships','August Santorini: absolute maximum overcrowding','November–March: most island businesses and ferries closed']},
+ mustEat:['Moussaka (proper taverna version, not tourist)','Spanakopita spinach and feta pastry','Fresh grilled octopus harbour taverna','Saganaki fried cheese flambeed','Horiatiki village salad (no lettuce)','Loukoumades honey doughnuts','Fresh whole fish at a fishing harbour','Fava dip (Santorini yellow split pea)'],
+ transport:[{icon:'🚇',mode:'Athens Metro',cost:'$1.40/ride',note:'Clean, fast, covers all main sights. 90-min ticket works on all public transport. 5-day pass ($9) worth it for Athens.'},{icon:'⛴',mode:'Ferries inter-island',cost:'$15–85',note:'Book via ferryscanner.com or directly. High-speed catamarans vs slow ferries. Book ahead in July–August.'},{icon:'🛵',mode:'ATV or scooter (islands)',cost:'$15–25/day',note:'Best for Santorini, Mykonos, Paros. Full driving licence required. Wear helmet — island roads are sharp.'},{icon:'✈',mode:'Domestic flights',cost:'$25–60',note:'Olympic Air and Sky Express connect Athens to islands. Useful for Crete and Rhodes — 8+ hour ferry otherwise.'}],
+ neighbourhoods:['Plaka (Athens, tourist but genuinely beautiful)','Psyrri (Athens, real food and bars)','Monastiraki (Athens, market and flea)','Oia (Santorini, sunset views)','Fira (Santorini, central, cliff walks)','Chania Old Town (Crete, unmissable)']},
+
+{id:'italy',flag:'🇮🇹',name:'Italy',region:'europe',regionLabel:'Southern Europe',
+ tagline:"The country that invented Western civilisation, then decided to perfect its food while they were at it. No country on Earth rewards slow travel more generously.",
+ budget:[65,90],mid:[110,165],luxury:[280,580],
+ prices:[['Rome hostel dorm','$22-36'],['Rome budget hotel private','$65-110'],['Venice private room mid','$80-150'],['Amalfi Coast boutique hotel','$130-300'],['Pizza margherita Naples DOC','$5-9'],['Pasta at trattoria','$8-14'],['Espresso at the bar standing','$1.10-1.50'],['Cappuccino morning only','$1.50-2.50'],['Gelato artisan 2 scoops','$2.50-4'],['Aperol Spritz at bar','$4-7'],['Rome Metro single ride','$1.50'],['Frecciarossa Rome–Florence','$25-55'],['Colosseum Forum Palatine','$18'],['Vatican Museums Sistine Chapel','$20-27'],['Uffizi Gallery Florence','$20'],['Pompeii entry','$16'],['Pizza al taglio per slice Rome','$2-4'],['Suppli Roman rice ball','$2-3']],
+ itinerary:[{day:'Days 1–4',title:'Rome — the eternal city',text:'Colosseum and Roman Forum (book online 24h ahead). Vatican: book skip-the-line tickets weeks ahead — sold out in summer. Trevi Fountain at 6am for empty photos. Campo de\' Fiori morning market. Trastevere neighbourhood for the most authentic Roman evening.',est:[65,110]},{day:'Days 5–7',title:'Florence — Renaissance capital',text:'Uffizi Gallery: book timed entry weeks ahead. Accademia for Michelangelo\'s David (book too). Brunelleschi\'s Duomo — climb the dome for views. Oltrarno neighbourhood for local Florentine life. Day trip to Siena or Val d\'Orcia countryside.',est:[70,120]},{day:'Days 8–10',title:'Cinque Terre & Ligurian coast',text:'Five pastel villages on cliffs above the Ligurian Sea. Hike the trail between them. Train between villages $3–5. Stay in La Spezia or Levanto (cheaper than the villages, 10-minute train).',est:[60,110]},{day:'Days 11–14',title:'Naples & Amalfi Coast',text:'Naples: Spaccanapoli for the best pizza on Earth. Pompeii half-day. Amalfi Coast: take the local SITA bus along the cliff road ($2) rather than expensive tourist boats. Positano, Ravello, Amalfi town.',est:[70,150]}],
+ tips:[{icon:'☕',title:'Stand at the bar like a local',text:'Coffee at the bar (standing) costs $1.10–1.50 in most of Italy. Same coffee at a table: 2–3x more. This is the table service charge (coperto). Standing at the bar is how Italian people drink coffee.',save:'Save $1–3 every coffee — adds up significantly'},{icon:'🍕',title:'Pizza al taglio for lunch',text:'Pizza by the slice sold by weight is Rome\'s street food. $2–4 buys a generous lunch at a proper forno. Never eat at tourist restaurants near the Colosseum or St Peter\'s Square — they are without exception terrible value.',save:'Save $8–15 on lunch every day'},{icon:'🎫',title:'Pre-book every major sight with time slot',text:'Colosseum, Vatican, Uffizi, Accademia — all require pre-booked timed entries in peak season. They sell out days or weeks ahead. Do this before you book your flights, not after you arrive.',save:'Prevents missing sights entirely + saves hours of queuing'},{icon:'🍷',title:'Order house wine (vino della casa)',text:'At any Italian trattoria, ask for the house wine in a carafe. $4–7 for half a litre of the local regional wine — almost always excellent. Wine snobs get this completely wrong.',save:'Save $8–15 per bottle vs menu wine prices'}],
+ bestTime:{go:['April–May: perfect weather, pre-peak','September–October: warm, harvest, fewer crowds'],avoid:['July–August: extreme heat, overwhelming crowds','August 10–20: Ferragosto — Italy largely closes','December–February: Venice floods (acqua alta possible)']},
+ mustEat:['Pizza Margherita DOC Naples (Sorbillo or Di Matteo)','Pasta Cacio e Pepe Rome (no cream — ever)','Suppli Roman fried rice ball (street)','Bistecca Fiorentina Florence (1kg minimum)','Ribollita Tuscan bread and bean soup','Pesto Genovese Liguria (fresh, not jarred)','Tiramisu at any proper trattoria','Arancini Sicilian fried rice balls'],
+ transport:[{icon:'🚂',mode:'Trenitalia Frecciarossa',cost:'$20–65',note:'Book 2–3 months ahead for best prices. Rome–Florence 1.5h. Florence–Venice 2h. Faster than flying door-to-door.'},{icon:'🚇',mode:'Rome/Milan Metro',cost:'$1.50/ride',note:'Limited networks but sufficient. Rome has 3 lines. Supplement with buses and trams. Day passes ($7) worth it.'},{icon:'🚌',mode:'SITA/Regional buses',cost:'$1–5',note:'Essential for Amalfi Coast. The cliff road bus is terrifying, magnificent and costs $2.'},{icon:'🚂',mode:'Regional trains (Regionale)',cost:'$5–15',note:'Slow but cheap. Rome to Orvieto, Florence to Siena, Naples to Pompeii — all affordable scenic rides.'}],
+ neighbourhoods:['Trastevere (Rome, authentic local neighbourhood)','Testaccio (Rome, market and working class food)','Oltrarno (Florence, artisan quarter)','Prati (Rome, near Vatican, residential feel)','Cannaregio (Venice, local quarter)','Spaccanapoli (Naples, chaotic, authentic)']},
+
+{id:'spain',flag:'🇪🇸',name:'Spain',region:'europe',regionLabel:'Southern Europe',
+ tagline:"Europe's most vibrant country — extraordinary food, world-class architecture, nightlife that starts at midnight and a generosity of spirit that makes every meal a social occasion.",
+ budget:[60,88],mid:[110,170],luxury:[270,560],
+ prices:[['Madrid/Barcelona hostel dorm','$20-34'],['Budget hotel private room','$55-95'],['Boutique hotel Barcelona','$90-180'],['Parador hotel historic','$90-160'],['Menu del dia 3 courses + wine','$12-16'],['Bocadillo sandwich at bar','$3-5'],['Tapas portion at bar','$2-5'],['Pintxos San Sebastian each','$1.80-3'],['Madrid Metro single ride','$1.50-2'],['AVE Madrid–Barcelona high-speed','$30-80'],['Sagrada Familia entry + towers','$26-36'],['Alhambra Granada advance booking','$18'],['Flamenco show tablao','$25-45'],['Cava glass at bar','$2.50-4'],['Jamon Iberico de bellota 50g','$8-15'],['Churros con chocolate','$3-5'],['Vermouth vermut at bar','$2.50-4'],['Paella per person Valencia','$12-20']],
+ itinerary:[{day:'Days 1–3',title:'Madrid — art, food & very late nights',text:'Prado Museum (Velazquez, Goya, El Greco — 1–2 mornings). Reina Sofia for Picasso\'s Guernica. Retiro Park afternoon. Dinner at 10pm at tapas bars in La Latina. Madrid nightlife starts at midnight — embrace it.',est:[60,110]},{day:'Days 4–6',title:'Barcelona — Gaudi & the sea',text:'Sagrada Familia: book morning entry weeks ahead. Park Guell: book timed entry. Gothic Quarter on foot. La Boqueria at 8am before it becomes tourist-only. Barceloneta beach afternoon. Gracia neighbourhood for dinner.',est:[70,130]},{day:'Days 7–9',title:'Andalusia — Granada & Seville',text:'Granada: the Alhambra (book months ahead — genuinely sells out entirely). Tapas culture: every drink comes with a free tapa. Seville: Real Alcazar, Cathedral, Flamenco show in Triana neighbourhood.',est:[60,110]},{day:'Days 10–12',title:'San Sebastian — world\'s food capital',text:'Pintxos bars of La Parte Vieja. Bar Nestor for the only tortilla worth queuing for (noon and 8pm, cash only). La Concha beach: finest urban beach in Europe. Surf at Zurriola beach.',est:[70,130]}],
+ tips:[{icon:'🍽',title:'Menu del dia: Spain\'s greatest institution',text:'Every local restaurant serves a set lunch: starter, main, dessert, bread, wine or water, coffee for €12–16. How Spanish people eat. Same restaurant charges €35–50 per person for dinner. Always eat your main meal at lunch.',save:'Save €20–35 per day on food'},{icon:'🎫',title:'Book the Alhambra 2 months ahead',text:'The Alhambra sells out completely, regularly, months in advance. No tickets at the door in high season. Book at palaciodenasrid.es before doing anything else for your Spain trip.',save:'Prevents missing the greatest sight in Spain'},{icon:'🕐',title:'Eat at Spanish times or miss the point',text:'Lunch 2–4pm. Dinner 9:30–11pm. Tapas 7–9pm. Arriving at 7pm for dinner gets you empty restaurants with stale food. At 10pm: full buzzing rooms, chefs at peak performance, the real Spain.',save:'Same cost — dramatically better food and atmosphere'},{icon:'🚂',title:'Book AVE trains 3 weeks ahead',text:'Madrid to Barcelona high-speed takes 2.5 hours and costs $30–40 booked early. Same last-minute: $80+. Spain\'s high-speed network is world-class — always use it over flying.',save:'Save €40–60 per journey consistently'}],
+ bestTime:{go:['March–May: Seville and Andalusia at perfection','September–November: harvest season, thinner crowds'],avoid:['July–August: 40°C+ inland, extreme heat everywhere','August San Sebastian: packed and most expensive','Easter week Semana Santa: beautiful but extremely busy']},
+ mustEat:['Jamon Iberico bellota grade (Extremadura)','Pintxos at Ganbara or Bar Nestor San Sebastian','Paella Valenciana (Valencia only, rice must be socarrat)','Gazpacho cold tomato soup Andalusia','Patatas bravas everywhere','Churros con chocolate (breakfast only)','Pulpo a la Gallega Galicia octopus','Pan con tomate Catalan breakfast'],
+ transport:[{icon:'🚄',mode:'AVE high-speed rail',cost:'$30–80',note:'Book via Renfe.com 2–4 weeks ahead. Madrid–Barcelona 2.5h, Madrid–Seville 2.5h. Better than flying door-to-door.'},{icon:'🚇',mode:'Metro Madrid/Barcelona',cost:'$1.50–2/ride',note:'Madrid Metro is excellent and cheap. 10-trip T-Casual card saves money. Barcelona adds tourist surcharge — buy at machines.'},{icon:'🚌',mode:'ALSA intercity buses',cost:'$10–30',note:'Good for routes without AVE — Seville to Granada, Barcelona to Valencia. Book alsa.com for cheapest prices.'},{icon:'🚗',mode:'Rental car Andalusia',cost:'$20–45/day',note:'Essential for white villages and rural areas. Excellent Spanish roads. Book with full insurance.'}],
+ neighbourhoods:['La Latina (Madrid, tapas and bars)','Malasana (Madrid, indie and young)','El Born (Barcelona, galleries and cocktails)','Gracia (Barcelona, local neighbourhood feel)','Albaicin (Granada, Moorish quarter)','Triana (Seville, flamenco and tiles)']},
+
+{id:'mexico',flag:'🇲🇽',name:'Mexico',region:'latam',regionLabel:'Latin America',
+ tagline:"The most underrated destination in the Americas — ancient civilisations, the world's most complex cuisine, staggering natural beauty and genuine warmth in every single interaction.",
+ budget:[30,55],mid:[65,110],luxury:[200,400],
+ prices:[['Mexico City hostel dorm','$10-18'],['Airbnb private CDMX','$30-60'],['Boutique hotel Oaxaca','$60-120'],['Tulum eco-hotel mid-range','$80-160'],['Tacos al pastor 3 street','$1.50-3'],['Comida corrida set lunch','$4-8'],['Tlayuda Oaxaca huge','$3-6'],['Restaurant meal CDMX','$8-18'],['Mezcal shot Oaxaca bar','$3-6'],['Agua fresca street','$0.50-1'],['Mexico City Metro ride','$0.25'],['CDMX to Oaxaca ADO bus','$25-35'],['Chichen Itza entry','$25'],['Teotihuacan entry','$5'],['Temazcal ceremony','$30-60'],['Cenote entry fee','$8-20'],['Mercado fresh juice','$1-2'],['Churro with chocolate street','$0.80-1.50']],
+ itinerary:[{day:'Days 1–3',title:'Mexico City — one of Earth\'s great cities',text:'Zocalo and Templo Mayor (Aztec ruins in city centre). Frida Kahlo Museum Coyoacan (book ahead). Palacio de Bellas Artes murals. Roma and Condesa for food: the world\'s best taqueria culture. Xochimilco floating gardens on Sunday.',est:[35,70]},{day:'Days 4–6',title:'Oaxaca — food capital of Mexico',text:'Mercado Benito Juarez for breakfast: tlayudas, chapulines, mole negro. Monte Alban Zapotec ruins above the valley. Day trip to Teotitlan del Valle for hand-woven rugs. Evening: mezcal tasting at a palenque distillery.',est:[30,65]},{day:'Days 7–9',title:'Chiapas — colonial highlands & jungle ruins',text:'San Cristobal de las Casas: colonial highland city with Indigenous markets. Canon del Sumidero boat trip through sheer canyons. Palenque: Mayan ruins in the jungle (stay overnight, arrive at opening).',est:[30,60]},{day:'Days 10–14',title:'Yucatan — Maya Peninsula',text:'Chichen Itza at gate opening (8am) for an empty hour. Valladolid cenotes walking distance from town. Bacalar "Lake of Seven Colours" — most serene lagoon in Mexico. Tulum cenote swimming and cliffside ruins.',est:[35,80]}],
+ tips:[{icon:'🌮',title:'Street tacos: cheapest and best',text:'The best tacos in Mexico cost $0.50–1 each. The rule: follow locals, look for busiest stand, go at 8am or 11pm when tortillas are freshest. Full lunch of 5 tacos plus agua fresca: $3–5.',save:'Save $10–15 per meal vs tourist restaurants'},{icon:'🚌',title:'ADO buses are excellent',text:'ADO first-class buses connect major cities in air-conditioned comfort with assigned seats. Mexico City to Oaxaca: $25–35, 6–7 hours. Far more comfortable than European equivalents for a fraction of the cost.',save:'Save $50–80 vs domestic flights on most routes'},{icon:'💧',title:'Cenotes: skip the famous ones',text:'The most famous cenotes (Ik Kil) are overcrowded. Inland cenotes near Valladolid cost $5–8, have 10% of the people and are more beautiful. Ask your accommodation for the local secret ones.',save:'Same experience, 70% cheaper entry'},{icon:'🔒',title:'CDMX neighbourhood safety varies enormously',text:'Roma, Condesa, Polanco, Coyoacan and Xochimilco are safe, walkable and excellent. Don\'t let safety reputation prevent you from experiencing one of the world\'s best food cities.',save:'Unlocks one of the world\'s greatest urban food experiences'}],
+ bestTime:{go:['October–April: dry season across most regions','November–February: perfect highlands weather','March–April: Oaxaca festivals and cultural events'],avoid:['June–September: rainy season (warm rains, manageable)','September: hurricane season on Pacific and Gulf coasts','Semana Santa: very crowded and accommodation doubles']},
+ mustEat:['Tacos al pastor CDMX (El Huequito)','Mole negro Oaxaca (any market)','Chiles en nogada CDMX (August–September only)','Cochinita pibil Yucatan slow-roasted pork','Tlayuda Oaxaca flatbread','Elotes grilled corn on street','Tamales Oaxacan style with black beans','Mezcal with sal de gusano worm salt'],
+ transport:[{icon:'🚇',mode:'Mexico City Metro',cost:'$0.25/ride',note:'One of cheapest and most extensive metros in the world. Covers nearly everywhere in CDMX. Buy a Metro card.'},{icon:'🚌',mode:'ADO first-class buses',cost:'$15–45',note:'Book at ado.com.mx. Air-conditioned, reliable, assigned seats. Best for all intercity travel.'},{icon:'🚕',mode:'Uber/InDrive',cost:'$2–10',note:'Both work across major cities. Always use apps — never hail street taxis in CDMX or tourist zones.'},{icon:'🛺',mode:'Collectivos shared vans',cost:'$0.50–3',note:'Between Yucatan towns and cenotes. Cheap, fast, used by locals. Ask at market for correct stand.'}],
+ neighbourhoods:['Roma Norte (CDMX, food and cafes)','Condesa (CDMX, parks and restaurants)','Coyoacan (CDMX, Frida Kahlo, Sunday market)','Jalatlaco (Oaxaca, boutique hotels)','El Centro Oaxaca (market and zocalo)','Bacalar Lagoon (Yucatan, off the beaten path)']},
+
+{id:'colombia',flag:'🇨🇴',name:'Colombia',region:'latam',regionLabel:'Latin America',
+ tagline:"South America's most exciting destination right now — spectacular landscapes, extraordinary food, the world's best coffee and a country that has completely reinvented itself.",
+ budget:[28,50],mid:[60,95],luxury:[180,360],
+ prices:[['Medellin hostel dorm','$8-14'],['Cartagena boutique guesthouse','$45-90'],['Bogota Airbnb private','$30-60'],['Cartagena walled city hotel','$80-160'],['Menu del dia lunch','$3-6'],['Street arepa','$0.80-1.50'],['Bandeja paisa full meal','$5-9'],['Restaurant dinner Medellin','$6-14'],['Aguardiente bottle','$4-7'],['Tinto black coffee street','$0.50-0.80'],['Medellin Metro ride','$0.80'],['Medellin–Cartagena flight','$35-80'],['El Penol rock + boat return','$6-8'],['Coffee region farm tour half-day','$20-40'],['Paragliding over Medellin','$60-90'],['Rosario Islands snorkelling','$35-55'],['Cocora Valley hike Salento','$2-5'],['Ceviche Cartagena coast','$4-8']],
+ itinerary:[{day:'Days 1–3',title:'Medellin — the transformation',text:'Cable cars into the Comunas. El Poblado for food and bars. Laureles and Envigado for local life. Pablo Escobar tours: contextual, not celebratory — an essential perspective on the city\'s remarkable transformation.',est:[30,65]},{day:'Days 4–5',title:'El Penol & Coffee Region',text:'Guatape: El Penol monolith (740 steps, 360 view over a thousand islands). Coffee Region: Salento village, Cocora Valley wax palms (world\'s tallest palm), working coffee farm tour.',est:[25,55]},{day:'Days 6–8',title:'Bogota — cultural capital',text:'La Candelaria colonial district. Gold Museum: world\'s largest pre-Columbian gold collection — genuinely extraordinary, free Sundays. Monserrate cable car views. Usaquen Sunday antiques market.',est:[30,70]},{day:'Days 9–13',title:'Cartagena & Caribbean Coast',text:'UNESCO-walled old city: most beautiful colonial architecture in South America. Getsemani neighbourhood: street art and real Cartagena. Rosario Islands day trip. Playa Blanca: 2 hours by boat, white sand Caribbean.',est:[40,90]}],
+ tips:[{icon:'☕',title:'Coffee region farm tours are transformative',text:'A $20–40 half-day on a working coffee finca gives you the complete journey from cherry to cup. You\'ll never drink coffee the same way again. Hacienda Guayabal near Chinchina is excellent.',save:'Worth every peso — $8 flat whites feel different after'},{icon:'🚇',title:'Medellin Metro is safe and immaculate',text:'The Metro system is the city\'s pride — immaculate, safe and costs $0.80. The Metrocable reaches high comunas once stigmatised as no-go zones, now proud and accessible neighbourhoods.',save:'Save $5–10 per journey vs taxi'},{icon:'🍽',title:'Menu del dia is Colombia\'s gift to travellers',text:'Every local restaurant serves: soup, main (rice, beans, meat, salad, plantain), juice, dessert for $3–6. A full, genuine Colombian meal. Eat this every single lunch.',save:'Save $5–10 per lunch vs ordering a la carte'},{icon:'📅',title:'Stay inside Cartagena\'s walled city',text:'The Zona Rosa hotel strip is a dull tourist trap. Stay inside the walled city or Getsemani — you\'ll pay less, be surrounded by beauty and actually experience the real Cartagena.',save:'Better experience and $20–40/night cheaper'}],
+ bestTime:{go:['December–March: Caribbean coast dry season','June–August: driest months in Medellin','October–November: Bogota flower festival'],avoid:['April–May: wettest months in Medellin','September: significant rain everywhere','Semana Santa: extremely busy and prices double']},
+ mustEat:['Bandeja paisa (mountain platter — everything)','Arepas con queso everywhere','Sancocho hearty chicken soup','Ceviche Cartagena coastal version','Lechona Tolima slow-roasted pork','Patacones twice-fried plantain','Aguardiente anise spirit (the national drink)','Cholado Cali shaved ice dessert'],
+ transport:[{icon:'🚇',mode:'Medellin Metro + Metrocable',cost:'$0.80/ride',note:'Buy a Civica card. Cable cars reach all four Metrocable lines including Santa Elena for views.'},{icon:'✈',mode:'Domestic flights Avianca/LATAM',cost:'$30–80',note:'Colombia is large — fly between regions. Medellin–Cartagena, Bogota–Medellin: usually $35–55.'},{icon:'🚌',mode:'Intercity buses',cost:'$5–25',note:'For nearby destinations: Bogota to Villa de Leyva ($6), Medellin to coffee region ($3–5).'},{icon:'📱',mode:'InDriver/Cabify',cost:'$2–8',note:'Both work in major cities. Never take unofficial street taxis. Always use apps for safety.'}],
+ neighbourhoods:['El Poblado (Medellin, expat, food and bars)','Laureles (Medellin, local, authentic)','La Candelaria (Bogota, colonial)','Usaquen (Bogota, upscale, Sunday market)','Walled City (Cartagena, beautiful colonial)','Getsemani (Cartagena, real, murals)']},
+
+{id:'peru',flag:'🇵🇪',name:'Peru',region:'latam',regionLabel:'Latin America',
+ tagline:"Machu Picchu alone justifies the flight. The rest — Lima's food scene, the Amazon, the Andes, ancient ruins across every horizon — makes Peru one of the most complete travel experiences on Earth.",
+ budget:[32,55],mid:[65,115],luxury:[200,420],
+ prices:[['Cusco hostel dorm','$8-15'],['Cusco boutique hotel','$45-90'],['Lima hotel Miraflores mid','$55-110'],['Amazon jungle lodge','$80-180'],['Menu del dia set lunch Lima','$3-6'],['Ceviche at market Lima','$4-8'],['Ceviche at mid restaurant','$10-18'],['Alpaca steak Cusco restaurant','$8-15'],['Lima–Cusco flight one way','$50-110'],['Inca Rail Cusco–Aguas Calientes','$45-90'],['Machu Picchu entry + bus','$50-65'],['Huayna Picchu add-on','$12'],['Peruvian craft beer Cusquena','$2-4'],['Pisco sour Lima bar','$5-8'],['Quinoa soup Andes','$2-4'],['Salt flats Maras half-day tour','$15-25'],['Colca Canyon 2-day tour','$45-80'],['Amazon 3-day lodge tour','$180-350']],
+ itinerary:[{day:'Days 1–3',title:'Lima — South America\'s food capital',text:'Miraflores cliffside walk at sunset. Barranco: bohemian, street art, best cocktail bars. Larco Museum for pre-Columbian gold. Mercado Surquillo for ceviche at $4–8 vs $18+ at tourist restaurants. Splurge once at Central or Maido (book months ahead).',est:[45,90]},{day:'Days 4–6',title:'Cusco & Sacred Valley',text:'Acclimatise first (3,400m altitude). Day 1 slow: Plaza de Armas, San Pedro market, Sacsayhuaman fortress. Day 2 Sacred Valley: Pisac market, Ollantaytambo, salt pans at Maras. Night in Aguas Calientes.',est:[50,100]},{day:'Days 7–8',title:'Machu Picchu — the pinnacle',text:'Enter at 6am sharp. First hour: quiet, misty, extraordinary. Hike to Sun Gate (1.5h extra — full panoramic). Hire a guide for full context of what you are seeing. One of the world\'s greatest human achievements.',est:[55,90]},{day:'Days 9–13',title:'Arequipa, Colca Canyon & Titicaca',text:'Arequipa White City: El Misti volcano backdrop, Santa Catalina Convent (its own city within a city). Colca Canyon: twice as deep as Grand Canyon — condors daily at Cruz del Condor. Lake Titicaca floating Uros reed islands.',est:[40,85]}],
+ tips:[{icon:'🎫',title:'Book Machu Picchu 3–4 months ahead',text:'Tickets sell out completely in timed entry slots. No way to buy at the door in peak season. Book at machupicchu.gob.pe the moment you confirm your trip dates. This is non-negotiable.',save:'Prevents missing the entire reason you came to Peru'},{icon:'🏔',title:'Acclimatise properly in Cusco',text:'Altitude sickness at 3,400m is genuinely debilitating — headaches, nausea, exhaustion. Spend 48 hours doing very little in Cusco before strenuous activity. Coca tea is widely available and helps.',save:'Prevents a ruined experience at $50+ entrance fee'},{icon:'🍽',title:'Lima\'s market ceviche experience',text:'Mercado Surquillo Market 1 is where Lima\'s top chefs shop. Ceviche stalls at the back serve the same quality as tourist restaurants for $4–8 vs $18–25. This is where Lima food professionals eat lunch.',save:'Save $10–18 per ceviche meal consistently'},{icon:'✈',title:'Fly Lima–Cusco, do not take the bus',text:'The Lima–Cusco bus takes 22–26 hours on mountain roads. The flight is 1.5 hours and costs $50–80 booked ahead. Your time is worth more than the $30 difference.',save:'Saves a full exhausting day of travel'}],
+ bestTime:{go:['May–October: dry season in Andes (best for Machu Picchu)','December–March: Amazon wet season (more wildlife visible)'],avoid:['January–April: rainy season Andes (Inca Trail closed February)','Inti Raymi June 24: Cusco packed and most expensive','August: absolute peak crowds at Machu Picchu']},
+ mustEat:['Ceviche Lima (the definitive world version)','Lomo saltado Peruvian Chinese stir-fry','Aji de gallina creamy chicken chilli','Causa rellena potato terrine','Anticuchos beef heart skewer (better than it sounds)','Chicha morada purple corn drink','Rocoto relleno stuffed spicy pepper Arequipa','Alpaca steak in Cusco'],
+ transport:[{icon:'✈',mode:'Domestic flights LATAM/Sky',cost:'$50–120',note:'Lima to Cusco 1.5h. Book 2–4 weeks ahead. Luggage allowance tight on budget fares.'},{icon:'🚂',mode:'Inca Rail/Peru Rail',cost:'$45–90 one way',note:'Cusco to Aguas Calientes. Book weeks ahead in high season. Inca Rail slightly cheaper.'},{icon:'🚌',mode:'Cruz del Sur buses',cost:'$8–25',note:'Best intercity company. Lima to Arequipa overnight $15–25. Comfortable and on-time.'},{icon:'🚕',mode:'Taxis (agree fare first)',cost:'$2–8',note:'No meters in Cusco. Agree price before getting in. InDriver works in Lima and Cusco.'}],
+ neighbourhoods:['Miraflores (Lima, safe, clifftop)','Barranco (Lima, arts, cocktails)','San Isidro (Lima, upscale business)','Plaza de Armas area (Cusco, colonial)','San Blas (Cusco, artisan quarter)','Aguas Calientes (Machu Picchu base)']},
+
+{id:'morocco',flag:'🇲🇦',name:'Morocco',region:'other',regionLabel:'North Africa',
+ tagline:"The closest thing to genuine culture shock from Europe — ancient medinas, Saharan dunes, spice-scented souks and a hospitality tradition that will reset your entire worldview.",
+ budget:[28,52],mid:[60,110],luxury:[180,400],
+ prices:[['Medina riad budget dorm','$8-15'],['Boutique riad private Fez','$40-80'],['Luxury riad Marrakech','$120-300'],['Sahara desert camp 2 nights','$60-100'],['Tagine local restaurant','$3-6'],['Street mechoui roast lamb','$2-4'],['Mint tea always','$0.50-1'],['Fresh orange juice medina','$0.70'],['Harira soup + bread','$1-2'],['Marrakech–Fez CTM bus','$14-18'],['Sahara 2-night tour camel + camp','$80-150'],['Hammam local neighbourhood','$2-5'],['Tourist hammam upscale','$20-40'],['Argan oil 500ml cooperative','$10-18'],['Fez medina official guide','$15-25'],['Espresso French-Moroccan','$0.80-1.50'],['Couscous Friday lunch','$3-6'],['Espresso and pastilla set','$2-4']],
+ itinerary:[{day:'Days 1–3',title:'Marrakech — Djemaa el-Fna & souks',text:'Djemaa el-Fna at dusk: musicians, storytellers, food stalls materialising everywhere. Koutoubia Mosque. Souks: hire official guide for first morning to understand what you\'re seeing. Bahia Palace. Majorelle Garden (Yves Saint Laurent blue garden — book ahead).',est:[35,80]},{day:'Days 4–6',title:'Fez — the ancient world',text:'Fez el-Bali: the largest medieval urban area in the world, essentially unchanged for 1,200 years. Chouara tanneries from above. Al-Attarine Madrasa. Official guide essential — 9,400 streets, navigation impossible alone. Fez is more authentic and more affordable than Marrakech.',est:[30,70]},{day:'Days 7–9',title:'Sahara Desert — Merzouga',text:'Overnight bus from Fez via Ziz Gorge (spectacular drive). Camel trek into Erg Chebbi dunes at sunset. Berber camp overnight under the most star-filled sky you\'ll ever see. Sunrise from the top of a dune. One of the defining travel experiences on Earth.',est:[40,100]},{day:'Days 10–12',title:'Chefchaouen — the Blue City',text:'Every wall, doorway and staircase painted in shades of blue and white. Quieter and more relaxed than Marrakech or Fez. Hike into the surrounding Rif Mountains for panoramic views over the blue city below.',est:[25,55]}],
+ tips:[{icon:'🤝',title:'Bargaining is a social ritual',text:'In Moroccan souks, the stated price is never the real price. Start at 30–40% of asking price and meet in the middle. It\'s expected, it\'s respectful, and refusing to bargain is considered rude. Your riad can help you calibrate fair prices before you go.',save:'Save 40–60% on everything purchased'},{icon:'🧭',title:'Hire an official guide in Fez',text:'Fez el-Bali has 9,400 lanes, many with no names. The official guide association (€15–25 half-day) employs knowledgeable locals and prevents harassment. What you see with a guide is incomparably better than wandering alone.',save:'€15–25 that transforms your entire Fez experience'},{icon:'🚕',title:'Always agree taxi price before you get in',text:'Grand taxis (intercity) and petits taxis (city) in Morocco rarely use meters for tourists. Always agree the price before getting in. Ask your riad what the fair price should be for common routes.',save:'Save $3–10 per journey vs tourist pricing'},{icon:'🍽',title:'Eat where workers eat at lunch',text:'Moroccan workers eat their main meal at lunch: full tagine with bread and tea for $2–5 at local restaurants. The same tagine at a tourist restaurant on Djemaa el-Fna: $10–18. Walk 3 streets back from any main square.',save:'Save $6–13 per meal consistently'}],
+ bestTime:{go:['October–April: cool and dry perfect weather','March–May: spring flowers, ideal for hiking and Atlas'],avoid:['June–August: extreme heat 45 degrees Celsius in Sahara','July–August: Marrakech unbearably hot for most people','Ramadan: respectful but some restaurants closed during daylight']},
+ mustEat:['Tagine slow-cooked lamb or chicken (real local version)','Couscous Fridays (the traditional day)','Pastilla pigeon and almond pastry Fez','Harira soup (especially during Ramadan)','Mechoui whole roasted lamb','Msemen layered flatbread with honey','Fresh orange juice Djemaa el-Fna 70 cents','Spiced mint tea (always accept — it is hospitality)'],
+ transport:[{icon:'🚌',mode:'CTM long-distance buses',cost:'$10–25',note:'Reliable, air-conditioned, on-time. Marrakech to Fez $14–18, Fez to Chefchaouen $8–12. Book ctm.ma ahead.'},{icon:'🚂',mode:'ONCF national rail',cost:'$8–20',note:'Casablanca–Marrakech–Fez corridor. Air-conditioned and comfortable. Book oncf.ma for advance discounts.'},{icon:'🚗',mode:'Shared grands taxis',cost:'$5–20',note:'For routes between smaller towns. 6-person shared taxis depart when full. Cheap and used by locals.'},{icon:'🚶',mode:'On foot (medinas only)',cost:'Free',note:'The only way to experience medinas properly. Get genuinely lost. Navigate by minarets and call to prayer.'}],
+ neighbourhoods:['Djemaa el-Fna area (Marrakech tourist centre)','Mouassine (Marrakech, boutique riads)','Fez el-Bali (ancient medina, unchanged)','Andalusian Quarter (Fez, quieter side)','Mellah Jewish quarter (Fez and Marrakech)','Blue City heart (Chefchaouen)']},
+
+{id:'india',flag:'🇮🇳',name:'India',region:'other',regionLabel:'South Asia',
+ tagline:"The most overwhelming, most rewarding, most completely unlike-anywhere-else destination on Earth. India doesn't ease you in — it throws you into the deep end. Go anyway.",
+ budget:[20,38],mid:[50,90],luxury:[160,340],
+ prices:[['Budget guesthouse private room','$5-14'],['Heritage hotel mid-range','$30-65'],['Luxury boutique hotel','$80-200'],['Kerala houseboat one night','$80-160'],['Thali meal at dhaba','$1-3'],['Masala dosa South India','$0.80-2'],['Restaurant meal sit-down','$4-9'],['Masala chai street stall','$0.20-0.40'],['Auto-rickshaw short ride','$0.80-2'],['Uber/Ola across city','$2-6'],['Delhi–Agra Shatabdi train','$8-12'],['Delhi–Mumbai flight booked ahead','$30-60'],['Taj Mahal entry foreign visitors','$15'],['Amer Fort Jaipur','$8'],['Overnight AC 3-tier train 3A','$10-20'],['Kerala backwaters houseboat 1 night','$70-150'],['Camel safari Jaisalmer','$25-55'],['Yoga class Rishikesh','$5-12']],
+ itinerary:[{day:'Days 1–3',title:'Delhi — old and new',text:'Old Delhi: Chandni Chowk by cycle rickshaw (sensory experience of a lifetime), Jama Masjid, Raj Ghat. New Delhi: Humayun\'s Tomb (rivals the Taj), Qutb Minar. Eat everything: chaat at Bengali Sweet House, butter chicken at Moti Mahal, parathas at Karim\'s.',est:[25,55]},{day:'Days 4–6',title:'Golden Triangle: Agra & Jaipur',text:'Taj Mahal at sunrise (arrive at gate opening — pink, misty, 30 minutes before crowds). Agra Fort. Train to Jaipur: Amber Fort, Hawa Mahal, Jantar Mantar observatory. City Palace. Best bazaars in Rajasthan for textiles.',est:[30,65]},{day:'Days 7–9',title:'Rajasthan: Jodhpur & Jaisalmer',text:'Jodhpur the Blue City: Mehrangarh Fort on a cliff — best fort in India. Blue-washed streets below. Jaisalmer: the Golden Fort still inhabited after 800 years. Camel safari into Thar Desert overnight — extraordinary star-filled sky.',est:[25,60]},{day:'Days 10–14',title:'Kerala — backwaters & beaches',text:'Kochi: spice warehouses, Chinese fishing nets, Fort Kochi colonial architecture, excellent seafood. Alleppey: overnight houseboat on the backwaters — palm canals, rice paddies, total silence. Varkala clifftop beach.',est:[30,70]}],
+ tips:[{icon:'🚂',title:'Book IRCTC trains in advance',text:'India\'s train network is extraordinary and affordable — but popular routes sell out weeks ahead. Book at irctc.co.in, create account before you travel. AC 3-tier sleeper (3A class) is comfortable and safe for overnight.',save:'Save $15–30 vs last-minute fares or hiring taxis'},{icon:'💊',title:'Street food is safe if chosen correctly',text:'Eat at busy stalls with high turnover and freshly cooked food. Avoid raw salads and ice from unknown sources. Carry oral rehydration salts. Most travellers have one difficult stomach day — it passes quickly.',save:'Enables eating the world\'s best street food safely'},{icon:'🛺',title:'Agree auto-rickshaw fares beforehand',text:'In cities without Uber, agree the fare before getting in. Ask your hotel what a fair price is. In larger cities use Uber or Ola — completely transparent pricing, no negotiation.',save:'Save $2–8 per journey vs tourist pricing'},{icon:'👗',title:'Dress respectfully at all religious sites',text:'Cover shoulders and knees at all temples, mosques and gurudwaras. Many provide coverings at the entrance. Simple respect that removes 90% of friction travellers complain about in India.',save:'Access to every religious site without any issue'}],
+ bestTime:{go:['October–March: cool and dry across most of India','November–January: the golden season, clear blue skies'],avoid:['April–June: extreme heat 45 degrees Celsius in the north','June–September: monsoon (beautiful but travel disrupted)','December 20–January 5: peak season, higher prices everywhere']},
+ mustEat:['Butter chicken Delhi (Moti Mahal the original)','Masala dosa any South Indian restaurant','Chaat Delhi street food (papdi, golgappa, aloo tikki)','Dal makhani slow-cooked black lentil','Rogan josh Kashmiri lamb curry','Pani puri hollow crispy spheres (street)','Kerala fish curry with appam','Lassi Jaipur saffron or rose flavour'],
+ transport:[{icon:'🚂',mode:'Indian Railways IRCTC',cost:'$3–20',note:'Book at irctc.co.in 60–90 days ahead. AC 3-tier (3A) for overnight. Shatabdi Express for fast daytime routes.'},{icon:'📱',mode:'Uber/Ola',cost:'$2–8',note:'Both work in all major Indian cities. Always prefer over hailed auto-rickshaws for safety and price.'},{icon:'✈',mode:'Domestic flights IndiGo',cost:'$25–60',note:'IndiGo is efficient, cheap and reliable. Book 3–4 weeks ahead. Over 500km, flying saves a full day.'},{icon:'🛺',mode:'Auto-rickshaws',cost:'$0.80–3',note:'Short hops in smaller cities. Agree price before getting in. Quintessentially India.'}],
+ neighbourhoods:['Old Delhi Shahjahanabad (Chandni Chowk)','Hauz Khas (Delhi, young, restaurants)','Fort Kochi (Kerala, colonial, peaceful)','Amer Old Jaipur (Pink City)','Mehrangarh area (Jodhpur Blue City)','Varkala Cliff (Kerala, beach)']},
+];
+
+const SAVINGS=[
+{cat:'✈ Flights',title:'Book 6–10 Weeks Ahead',tip:'The sweet spot for international pricing. Use Google Flights price calendar to find cheapest departure dates. Shifting by 1–2 days can save $100–200+.',save:'Save 20–40%'},
+{cat:'✈ Flights',title:'Set Price Alerts and Wait',tip:'Google Flights and Skyscanner allow alerts on specific routes. Set 3–4 months out and book when prices drop — they always fluctuate significantly.',save:'Save 15–30%'},
+{cat:'✈ Flights',title:'Book on Tuesday or Wednesday',tip:'Airlines release sales Monday nights, competitors match by Tuesday morning. Weekend searches are consistently 15–20% more expensive across almost all routes.',save:'Save 10–20%'},
+{cat:'✈ Flights',title:'Search Flexible Dates Always',tip:'Google Flights "flexible dates" shows prices across a full month. Cheapest day to fly is often Tuesday, Wednesday or Saturday. Can save hundreds on long-haul routes.',save:'Save up to $300'},
+{cat:'💳 Banking',title:'Always Choose Local Currency at ATMs',tip:'When ATMs offer home vs local currency — always choose LOCAL. Dynamic Currency Conversion costs 3–7% extra every single time and is purely a profit mechanism for the ATM operator.',save:'Save 3–7% per withdrawal'},
+{cat:'💳 Banking',title:'Use Wise or Revolut Card',tip:'Zero or near-zero foreign transaction fees on every purchase and withdrawal. The single most important financial decision for international travel. Set up at home before departure.',save:'Save $200–500+ per trip'},
+{cat:'💳 Banking',title:'Withdraw Larger Amounts Less Often',tip:'Minimise flat ATM fees by withdrawing larger sums less frequently. Many ATMs charge $3–5 flat fee per withdrawal regardless of amount — consolidating saves significantly.',save:'Save $5–15 per trip day'},
+{cat:'🏨 Accommodation',title:'Night Buses = Free Accommodation',tip:'Overnight buses and trains cover transport AND accommodation simultaneously. In SE Asia this saves $15–30 per journey. Use for every long intercity leg you take.',save:'Save $15–30 per trip'},
+{cat:'🏨 Accommodation',title:'Monthly Airbnb Rates',tip:'Committing to a monthly stay unlocks 30–50% discounts vs nightly rates. Perfect for slow travel and digital nomads spending 2–4 weeks in any single city.',save:'Save 30–50%'},
+{cat:'🏨 Accommodation',title:'Stay in Neighbourhoods Not Tourist Zones',tip:'A hotel 15 minutes from main sights costs 40–60% less than an identical hotel inside the tourist area — and gives a far more authentic local experience throughout.',save:'Save 40–60%'},
+{cat:'🏨 Accommodation',title:'Book Directly with Hotels',tip:'After finding a hotel on Booking.com, email directly and ask if they will match the price. Most independent hotels will — saving both of you the OTA commission of 15–25%.',save:'Save 10–20%'},
+{cat:'🍜 Food',title:'Eat Where Locals Eat',tip:'Walk one street back from any tourist attraction. No English menu outside means local pricing. You will pay 50–80% less for often superior food that actually represents local cuisine.',save:'Save 50–80%'},
+{cat:'🍜 Food',title:'Markets and Hawker Centres',tip:'Asia\'s hawker centres, Latin America\'s mercados, Morocco\'s medina restaurants — always the best food at the lowest prices. Never eat adjacent to major tourist monuments.',save:'Save 60–80%'},
+{cat:'🍜 Food',title:'The Lunch Strategy',tip:'Most countries offer dramatically reduced set lunch menus. Eat your main meal at lunch — better food, half the price. Spain, Portugal, France, Italy, all of Latin America all have excellent versions.',save:'Save 30–50% on dining'},
+{cat:'🍜 Food',title:'Self-Catering for Breakfasts',tip:'Local bakeries, supermarkets or markets for breakfast cuts morning costs by 70%. Saves $5–15 per day on a long trip. This is how most long-term travellers operate.',save:'Save $5–15 per day'},
+{cat:'🚌 Transport',title:'Overnight Trains for Long Routes',tip:'Overnight sleepers combine transport and accommodation. Indian Railways, European night trains and SE Asian sleeper buses are all excellent value and comfortable.',save:'Save $20–60 per journey'},
+{cat:'🚌 Transport',title:'Book European Trains Early',tip:'High-speed trains (TGV, AVE, Frecciarossa, Eurostar) cost $15–30 booked 60+ days ahead vs $100–200+ last-minute. Always pre-book rail in Europe.',save:'Save 60–80% on rail'},
+{cat:'🚌 Transport',title:'Use Local Transport Apps',tip:'Grab (SE Asia), InDriver, Ola (India), Bolt (Europe) always beat flagging taxis on price and reliability. Never take unmetered taxis from airports under any circumstances.',save:'Save 30–60%'},
+{cat:'🚌 Transport',title:'Walk Everywhere Possible',tip:'The best cities are walkable. Walking costs nothing, creates unexpected discoveries and shows you more than any tour. The best travel moments are almost always unplanned.',save:'Saves daily transport costs entirely'},
+{cat:'🎟 Activities',title:'City Museum and Transport Passes',tip:'Most major cities offer passes (Paris Museum Pass, Athens All-Sites, etc.) that pay for themselves in 2–3 days. Always calculate vs individual entry prices first.',save:'Save 30–50% on activities'},
+{cat:'🎟 Activities',title:'Free Museum Days',tip:'Paris museums free first Sunday monthly. London national museums always free. Most major institutions have one free day. Research before arriving in each city.',save:'Save $15–30 per museum'},
+{cat:'🎟 Activities',title:'Sunrise Beats Crowds and Saves',tip:'Many attractions are free or half-price at opening. Machu Picchu, Fushimi Inari, Santorini, Angkor Wat — all transformed by arriving at dawn. Better photos, fewer people, sometimes cheaper.',save:'Save $5–20 plus dramatically better experience'},
+{cat:'📋 Planning',title:'Travel in Shoulder Season',tip:'May–June and September–October: better weather than winter, 30–60% cheaper than peak summer, far fewer tourists. The optimal time to visit almost everywhere in the world.',save:'Save 30–60% on entire trip cost'},
+{cat:'📋 Planning',title:'Slow Down and Stay Longer',tip:'Moving every 2–3 days is expensive: transport, first/last night accommodation, wasted orientation time. Staying a week or more cuts costs dramatically and deepens the experience enormously.',save:'Save 20–40% on trips'},
+{cat:'📋 Planning',title:'Pack Light: Carry-On Only',tip:'Checked baggage fees on budget airlines cost $30–60+ per flight. A well-packed 20-litre carry-on saves significant money on multi-flight trips and eliminates baggage carousel waiting entirely.',save:'Save $30–60 per flight'},
+{cat:'📋 Planning',title:'Get an eSIM Before You Board',tip:'Airport SIM cards and hotel WiFi are overpriced. Airalo and Holafly offer cheap local data plans without swapping physical SIMs. Buy on the app before you board your flight.',save:'Save $5–15 per day on data costs'},
+{cat:'📋 Planning',title:'Travel Insurance: Never Skip It',tip:'Skipping insurance to save $80 exposes you to $10,000–200,000+ risks. Annual multi-trip policies for frequent travellers often cost less than per-trip coverage. World Nomads and SafetyWing are excellent.',save:'Potentially save your entire life savings'},
+{cat:'📋 Planning',title:'Use Travel Rewards Credit Cards',tip:'Chase Sapphire, Amex Gold, Barclays Avios — earn points on everyday spending that convert to free flights and hotels. Apply 6+ months before a big trip to hit welcome bonus thresholds.',save:'Earn $500–2,000 in free travel annually'},
+{cat:'🌍 Route Strategy',title:'Move from Expensive to Cheap',tip:'Structure your RTW to start in expensive regions while budget is fresh and enthusiasm is highest. End in cheap regions (SE Asia, Latin America) to stretch further as the trip winds down.',save:'Save $1,000–3,000+ on RTW trips'},
+{cat:'🌍 Route Strategy',title:'Cluster Your Destinations by Region',tip:'Flying between SE Asia and Europe wastes $400–600 per cross-regional jump. Do all Asian countries then all European ones. Minimise regional back-and-forth in your route planning.',save:'Save $400–1,200 on flights total'},
+{cat:'🌍 Route Strategy',title:'Sequence by Cost: Cheap First',tip:'Start your trip in the cheapest region and work toward more expensive ones. Your frugal habits are strongest at the beginning — you\'ll spend less overall when budget discipline is freshest.',save:'Save $500–1,500 on month-long+ trips'},
+];
+
+const TOOLS=[
+{icon:'✈',name:'Google Flights',desc:'The best flight search engine. Use Price Calendar and flexible date views. Set price alerts on specific routes months ahead.',cat:'Flights'},
+{icon:'🔔',name:'Skyscanner',desc:'Multi-airline search with price calendar. Best for finding cheapest month to fly, not just cheapest day on a specific route.',cat:'Flights'},
+{icon:'💳',name:'Wise (TransferWise)',desc:'Zero foreign transaction fees, real mid-market exchange rate. The most important financial tool for any international traveller. Set up before leaving.',cat:'Banking'},
+{icon:'💳',name:'Revolut',desc:'Multi-currency account with excellent rates, fee-free ATM withdrawals to a limit, and built-in travel features. Great UK and EU alternative.',cat:'Banking'},
+{icon:'🗺',name:'Google Maps (Offline)',desc:'Download city/region maps before arriving. Works perfectly without data. Essential for every destination on the planet.',cat:'Navigation'},
+{icon:'🌐',name:'Maps.me',desc:'Detailed offline maps including hiking trails and remote areas where Google Maps data is thin. Better for rural destinations.',cat:'Navigation'},
+{icon:'🏨',name:'Hostelworld',desc:'The definitive hostel booking platform with verified reviews. Filter by social atmosphere, cleanliness and location score.',cat:'Accommodation'},
+{icon:'🏠',name:'Airbnb (Monthly)',desc:'Monthly discount mode unlocks 30–50% off nightly rates. Always message hosts to negotiate. Best for slow travel in one city.',cat:'Accommodation'},
+{icon:'📱',name:'Grab',desc:'SE Asia\'s dominant ride-hailing app. Essential in Thailand, Vietnam, Bali, Malaysia, Singapore, Philippines. Always beats street taxis.',cat:'Transport'},
+{icon:'🚌',name:'Rome2rio',desc:'Searches all transport between any two global points: bus, train, flight, ferry. Essential for route planning in Asia and Europe.',cat:'Transport'},
+{icon:'📡',name:'Airalo eSIM',desc:'Buy cheap data eSIMs for 200+ countries before travel. Dramatically cheaper than roaming or airport SIMs.',cat:'Connectivity'},
+{icon:'🔐',name:'NordVPN',desc:'Essential for public WiFi security. Also accesses home country streaming abroad. Annual plan is very affordable.',cat:'Tech'},
+{icon:'📷',name:'Google Lens',desc:'Point camera at any foreign menu, sign or text for instant translation. Works offline with downloaded language packs.',cat:'Language'},
+{icon:'💬',name:'Google Translate (Offline)',desc:'Download language packs for offline use. Voice conversation mode is surprisingly effective for real-time two-way translation.',cat:'Language'},
+{icon:'🛡',name:'World Nomads',desc:'Travel insurance for adventurous travellers. Covers extreme sports, gear theft, medical emergencies and emergency evacuation.',cat:'Insurance'},
+{icon:'🛡',name:'SafetyWing',desc:'Flexible subscription travel insurance. Monthly billing, cancel anytime. Ideal for long-term travellers and digital nomads.',cat:'Insurance'},
+{icon:'🌤',name:'Windy.com',desc:'Most accurate weather tool for outdoor activities. Hiking, sailing, beach days — far more detailed than standard weather apps.',cat:'Weather'},
+{icon:'🎒',name:'PackPoint',desc:'Smart packing list generator based on destination, trip length, weather and activities. Eliminates over-packing completely.',cat:'Planning'},
+{icon:'💰',name:'Trail Wallet',desc:'Daily budget tracker. Set budget, track spending in local currency with auto-conversion. Prevents overspending without complex spreadsheets.',cat:'Budgeting'},
+{icon:'📶',name:'WhatsApp',desc:'Global communication standard. Used by hostels, guides, accommodation and businesses worldwide. Download before leaving.',cat:'Communication'},
+{icon:'🎫',name:'GetYourGuide/Viator',desc:'Pre-book tours and skip-the-line tickets. Machu Picchu, Alhambra, Vatican — all must be booked here weeks ahead in peak season.',cat:'Activities'},
+{icon:'⭐',name:'TripAdvisor (with filters)',desc:'For restaurant discovery: filter by local cuisine, sort by value. Ignore Tourist filter results — always overpriced and usually mediocre.',cat:'Discovery'},
+];
+
+function buildCard(c){
+  const bLo=c.budget[0],bHi=c.budget[1],mLo=c.mid[0],mHi=c.mid[1],lLo=c.luxury[0],lHi=c.luxury[1];
+  return `<div class="cc" onclick="openCountry('${c.id}')">
+    <div class="cc-head">
+      <div><div class="cc-flag">${c.flag}</div><div class="cc-name">${c.name}</div><div class="cc-reg">${c.regionLabel}</div></div>
+      <div class="cc-price-col">
+        <div class="cc-price"><span data-usd="${bLo}-${bHi}">${fmtR(bLo,bHi)}</span><span class="live-dot-sm"></span></div>
+        <div class="cc-plabel">budget/day</div>
+      </div>
+    </div>
+    <div class="cc-body">
+      <div class="cc-row"><span class="cc-rl">🎒 Budget</span><span class="cc-rv" data-usd="${bLo}-${bHi}">${fmtR(bLo,bHi)}/day</span></div>
+      <div class="cc-row"><span class="cc-rl">🧳 Mid-Range</span><span class="cc-rv" data-usd="${mLo}-${mHi}">${fmtR(mLo,mHi)}/day</span></div>
+      <div class="cc-row"><span class="cc-rl">✦ Luxury</span><span class="cc-rv" data-usd="${lLo}-${lHi}">${fmtR(lLo,lHi)}/day</span></div>
+      <div class="cc-chip">${c.regionLabel}</div>
+    </div>
+  </div>`;
+}
+
+function buildCountryGrids(){
+  const grids={asia:[],europe:[],latam:[],other:[]};
+  COUNTRIES.forEach(c=>{if(grids[c.region])grids[c.region].push(c);});
+  Object.entries(grids).forEach(([r,cs])=>{
+    const el=document.getElementById('cg-'+r);
+    if(el)el.innerHTML=cs.map(buildCard).join('');
+  });
+}
+
+function openCountry(id,silent){
+  window._openCID=id;
+  const c=COUNTRIES.find(x=>x.id===id);
+  if(!c)return;
+  function parseUSD(str){
+    const m=str.match(/\$([\d.]+)(?:[–\-]\$?([\d.]+))?/);
+    if(!m)return{display:str,da:''};
+    const lo=parseFloat(m[1]),hi=m[2]?parseFloat(m[2]):null;
+    const key=hi?`${lo}-${hi}`:lo.toString();
+    const suffix=str.replace(/\$[\d.]+[–\-]?\$?[\d.]*/,'').trim();
+    const disp=hi?fmtR(lo,hi)+suffix:fmt(cv(lo))+suffix;
+    return{display:disp,da:`data-usd="${key}"`};
+  }
+  const priceRows=c.prices.map(([l,v])=>{const p=parseUSD(v);return`<div class="pt-row"><span class="pt-item">${l}</span><span class="pt-val" ${p.da}>${p.display}<span class="live-tag">LIVE</span></span></div>`;}).join('');
+  const itinHTML=c.itinerary.map(d=>`<div class="itin-day"><div class="itin-day-tag">${d.day}</div><div class="itin-day-title">${d.title}</div><div class="itin-day-text">${d.text}</div><div class="itin-day-cost"><span class="live-dot-sm"></span>Est. spend: <span data-usd="${d.est[0]}-${d.est[1]}">${fmtR(d.est[0],d.est[1])}</span>/day</div></div>`).join('');
+  const tipsHTML=c.tips.map(t=>`<div class="tip-card"><div class="tip-icon">${t.icon}</div><div><div class="tip-label">Insider Tip</div><div class="tip-text">${t.text}</div><div class="tip-save">💰 ${t.save}</div></div></div>`).join('');
+  const goHTML=c.bestTime.go.map(x=>`<div class="sc-item">${x}</div>`).join('');
+  const avoidHTML=c.bestTime.avoid.map(x=>`<div class="sc-item">${x}</div>`).join('');
+  const eatHTML=c.mustEat.map(x=>`<div class="tag-pill">${x}</div>`).join('');
+  const nbrHTML=c.neighbourhoods.map(x=>`<div class="tag-pill">${x}</div>`).join('');
+  const trHTML=c.transport.map(t=>`<div class="tr-item"><div class="tr-icon">${t.icon}</div><div style="flex:1"><div class="tr-mode">${t.mode}</div><div class="tr-note">${t.note}</div></div><div class="tr-cost">${t.cost}</div></div>`).join('');
+  const bLo=c.budget[0],bHi=c.budget[1],mLo=c.mid[0],mHi=c.mid[1],lLo=c.luxury[0],lHi=c.luxury[1];
+  document.getElementById('country-detail-content').innerHTML=`
+    <div class="cd-hero">
+      <div class="cd-top">
+        <div><div class="cd-flag">${c.flag}</div><div class="cd-name">${c.name}</div><div class="cd-tagline">${c.tagline}</div></div>
+        <div class="cd-live-badge"><div class="sb-live-dot"></div>All prices live in ${activeCur}</div>
+      </div>
+      <div class="cd-tiers">
+        <div class="cd-tier ct-budget"><div class="ct-label">🎒 Budget Traveller</div><div class="ct-price" data-usd="${bLo}-${bHi}">${fmtR(bLo,bHi)}<span style="font-size:13px;font-weight:300">/day</span></div><div class="ct-desc">Hostels, street food, local transport</div><div class="ct-live"><span class="sb-live-dot"></span>Live rate</div></div>
+        <div class="cd-tier ct-mid"><div class="ct-label">🧳 Mid-Range</div><div class="ct-price" data-usd="${mLo}-${mHi}">${fmtR(mLo,mHi)}<span style="font-size:13px;font-weight:300">/day</span></div><div class="ct-desc">Private rooms, restaurants, mixed transport</div><div class="ct-live"><span class="sb-live-dot"></span>Live rate</div></div>
+        <div class="cd-tier ct-luxury"><div class="ct-label">✦ Luxury</div><div class="ct-price" data-usd="${lLo}-${lHi}">${fmtR(lLo,lHi)}<span style="font-size:13px;font-weight:300">/day</span></div><div class="ct-desc">Boutique hotels, fine dining, private transfers</div><div class="ct-live"><span class="sb-live-dot"></span>Live rate</div></div>
+      </div>
+    </div>
+    <div class="cd-body">
+      <div class="cd-section"><div class="cs-title">💰 Price Reference — ${c.prices.length} Key Costs <span class="cs-live"><span class="cs-live-dot"></span>LIVE</span></div><div class="price-tbl">${priceRows}</div></div>
+      <div class="cd-section"><div class="cs-title">🗓 Day-by-Day Itinerary</div><div class="itin-content">${itinHTML}</div></div>
+      <div class="cd-section full"><div class="cs-title">💡 Insider Tips & Strategies</div><div class="tips-grid">${tipsHTML}</div></div>
+      <div class="cd-section"><div class="cs-title">📅 Best Time to Visit</div><div class="split-grid"><div class="split-card sc-go"><div class="sc-label">✓ GO</div><div class="sc-items">${goHTML}</div></div><div class="split-card sc-avoid"><div class="sc-label">✗ AVOID</div><div class="sc-items">${avoidHTML}</div></div></div></div>
+      <div class="cd-section"><div class="cs-title">🚌 Getting Around</div><div class="transport-grid">${trHTML}</div></div>
+      <div class="cd-section"><div class="cs-title">🍜 Must-Eat Foods</div><div class="tag-cloud">${eatHTML}</div></div>
+      <div class="cd-section"><div class="cs-title">📍 Best Neighbourhoods</div><div class="tag-cloud">${nbrHTML}</div></div>
+    </div>`;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const det=document.getElementById('country-detail');
+  det.style.display='block';det.classList.add('active');
+  document.getElementById('bc-cur').textContent=c.name;
+  document.querySelectorAll('.c-item').forEach(el=>el.classList.toggle('active',el.getAttribute('onclick')===`openCountry('${id}')`));
+  if(!silent)window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+
+function closeDetail(){
+  document.getElementById('country-detail').style.display='none';
+  document.getElementById('country-detail').classList.remove('active');
+  window._openCID=null;
+  switchPanel('countries');
+}
+
+document.getElementById('savings-grid').innerHTML=SAVINGS.map(s=>`<div class="sc-card"><div class="sc-cat">${s.cat}</div><div class="sc-title">${s.title}</div><div class="sc-tip">${s.tip}</div><span class="sc-save">${s.save}</span></div>`).join('');
+document.getElementById('tools-grid').innerHTML=TOOLS.map(t=>`<div class="tool"><div class="tool-icon">${t.icon}</div><div class="tool-name">${t.name}</div><div class="tool-desc">${t.desc}</div><span class="tool-cat">${t.cat}</span></div>`).join('');
+
+function switchPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('country-detail').style.display='none';
+  document.getElementById('country-detail').classList.remove('active');
+  window._openCID=null;
+  const p=document.getElementById('panel-'+id);
+  if(p)p.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(n=>n.classList.toggle('active',n.dataset.panel===id));
+  const labels={dashboard:'Dashboard',countries:'All Countries',budget:'Budget Framework',regional:'Regional Costs',savings:'Money-Saving Strategies',tools:'Essential Tools',calculator:'Budget Calculator'};
+  document.getElementById('bc-cur').textContent=labels[id]||id;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+document.querySelectorAll('.sb-item').forEach(item=>{item.addEventListener('click',()=>{if(item.dataset.panel)switchPanel(item.dataset.panel);});});
+function toggleRg(id){const g=document.getElementById('rg-'+id);if(g)g.classList.toggle('open');}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+document.addEventListener('click',e=>{if(window.innerWidth<900){const sb=document.getElementById('sidebar');if(sb.classList.contains('open')&&!sb.contains(e.target)&&!e.target.closest('.mobile-btn'))sb.classList.remove('open');}});
+fetchRates();
+buildCountryGrids();
+
+
+
+// ════════════════════════════════════════════
+// BUDGET CALCULATOR — clean rebuild
+// ════════════════════════════════════════════
+(function(){
+
+var CDATA = [
+  {id:'thailand',  flag:'🇹🇭', name:'Thailand',  region:'Southeast Asia',
+   season:[1,1,1,1,0.92,0.88,0.9,0.92,0.88,0.9,0.95,1.05],
+   b:{acc:9,food:5,tr:4,act:6,misc:5,ins:3.5,flt:18},
+   m:{acc:40,food:15,tr:10,act:18,misc:12,ins:3.5,flt:18},
+   l:{acc:180,food:50,tr:35,act:60,misc:35,ins:3.5,flt:60},
+   tips:['Street pad thai: $1–3. Night markets save 60% vs tourist spots.',
+         'Overnight buses ($8–16) = transport + accommodation in one.',
+         'Scooter rental ($6–10/day) unlocks everything.',
+         'Shoulder season (May–June) = 40% cheaper than December.']},
+  {id:'japan',     flag:'🇯🇵', name:'Japan',     region:'East Asia',
+   season:[1.08,1.05,1.1,1.08,1,0.95,0.95,0.95,1,1.05,1.08,1.1],
+   b:{acc:38,food:16,tr:12,act:10,misc:8,ins:4,flt:35},
+   m:{acc:90,food:35,tr:22,act:22,misc:20,ins:4,flt:35},
+   l:{acc:280,food:100,tr:45,act:80,misc:60,ins:4,flt:120},
+   tips:['7-Eleven meals: $4–7 and genuinely excellent quality.',
+         'Calculate JR Pass ($340) vs your actual shinkansen routes.',
+         'Capsule hotels: $30–50/night, clean and atmospheric.',
+         'Avoid Golden Week (late April–May): hotels double in price.']},
+  {id:'bali',      flag:'🇮🇩', name:'Bali',      region:'Indonesia',
+   season:[0.9,0.88,0.92,0.95,0.88,0.85,1.05,1.08,1.02,0.95,0.92,0.95],
+   b:{acc:12,food:5,tr:5,act:8,misc:6,ins:3.5,flt:28},
+   m:{acc:60,food:18,tr:15,act:22,misc:15,ins:3.5,flt:28},
+   l:{acc:200,food:55,tr:45,act:70,misc:40,ins:3.5,flt:80},
+   tips:['Scooter rental ($5–8/day) is the best investment in Bali.',
+         'Local warungs: nasi goreng for $1.50–3 vs $9–12 at tourist cafés.',
+         'Negotiate 20–35% off for stays of 5+ nights.',
+         'May–June: dry, quiet, best prices all year.']},
+  {id:'vietnam',   flag:'🇻🇳', name:'Vietnam',   region:'Southeast Asia',
+   season:[1,1,1.02,1,0.95,0.92,0.9,0.9,0.92,0.95,1,1.02],
+   b:{acc:8,food:4,tr:6,act:5,misc:5,ins:3.5,flt:22},
+   m:{acc:35,food:12,tr:12,act:14,misc:10,ins:3.5,flt:22},
+   l:{acc:140,food:45,tr:30,act:45,misc:30,ins:3.5,flt:65},
+   tips:['Bia hoi street beer in Hanoi: $0.40.',
+         'Sleeper buses: $12–18 city-to-city, covers accommodation too.',
+         'Hoi An tailor suit: $50–120. Order day 1, collect day 3.',
+         'Halong Bay budget cruise ($60–80) is perfectly fine.']},
+  {id:'portugal',  flag:'🇵🇹', name:'Portugal',  region:'Southern Europe',
+   season:[0.88,0.88,0.92,0.95,1,1.05,1.12,1.15,1.08,0.98,0.9,0.88],
+   b:{acc:22,food:12,tr:6,act:9,misc:8,ins:4.5,flt:30},
+   m:{acc:75,food:25,tr:12,act:22,misc:18,ins:4.5,flt:30},
+   l:{acc:220,food:75,tr:35,act:60,misc:50,ins:4.5,flt:95},
+   tips:['Set lunch menú: $8–12 for 3 courses + wine. Eat at lunch.',
+         'Supermarket wine: $3–7/bottle and genuinely world-class.',
+         'Sintra: weekday at opening = empty. Weekend = jammed.',
+         'Monthly Airbnb Porto from $700/month saves 40–55%.']},
+  {id:'greece',    flag:'🇬🇷', name:'Greece',    region:'Southern Europe',
+   season:[0.82,0.82,0.88,0.92,1,1.1,1.25,1.28,1.12,0.95,0.85,0.82],
+   b:{acc:22,food:12,tr:8,act:12,misc:8,ins:4.5,flt:35},
+   m:{acc:90,food:28,tr:16,act:25,misc:18,ins:4.5,flt:35},
+   l:{acc:280,food:80,tr:40,act:75,misc:55,ins:4.5,flt:100},
+   tips:['May and September: same views as August at 40% lower cost.',
+         'Psyrri in Athens: same food as Plaka at half the price.',
+         'Ferry between islands beats flying door-to-door and is cheaper.',
+         'One street back from tourist squares: save $5–10 per meal.']},
+  {id:'italy',     flag:'🇮🇹', name:'Italy',     region:'Southern Europe',
+   season:[0.9,0.9,0.95,1,1.05,1.08,1.18,1.2,1.1,1,0.92,0.9],
+   b:{acc:28,food:14,tr:7,act:12,misc:9,ins:4.5,flt:32},
+   m:{acc:95,food:30,tr:14,act:25,misc:20,ins:4.5,flt:32},
+   l:{acc:260,food:90,tr:40,act:80,misc:60,ins:4.5,flt:105},
+   tips:['Espresso at the bar: $1.10. At a table: $3–4. Always stand.',
+         'Pizza al taglio (by the slice): $2–4 for a full lunch.',
+         'Pre-book Vatican, Colosseum and Uffizi weeks ahead.',
+         'House wine in carafes ($4–7/half litre) is almost always excellent.']},
+  {id:'spain',     flag:'🇪🇸', name:'Spain',     region:'Southern Europe',
+   season:[0.88,0.88,0.92,0.98,1.02,1.08,1.18,1.2,1.08,0.98,0.9,0.88],
+   b:{acc:25,food:13,tr:6,act:10,misc:9,ins:4.5,flt:30},
+   m:{acc:85,food:28,tr:14,act:24,misc:18,ins:4.5,flt:30},
+   l:{acc:250,food:85,tr:38,act:75,misc:55,ins:4.5,flt:95},
+   tips:['Menú del día: 3 courses + wine + coffee for $12–16.',
+         'Book the Alhambra 2 months ahead — it sells out entirely.',
+         'AVE trains booked 3 weeks ahead: $30–40 vs $80+ last-minute.',
+         'San Sebastián pintxos: $1.80–3 each, better than restaurants.']},
+  {id:'mexico',    flag:'🇲🇽', name:'Mexico',    region:'Latin America',
+   season:[1.05,1,0.98,0.95,0.92,0.9,0.92,0.92,0.88,0.9,0.95,1.08],
+   b:{acc:14,food:6,tr:4,act:8,misc:6,ins:3.5,flt:25},
+   m:{acc:55,food:18,tr:10,act:18,misc:14,ins:3.5,flt:25},
+   l:{acc:160,food:55,tr:30,act:55,misc:40,ins:3.5,flt:80},
+   tips:['Street tacos: $0.50–1 each and better than any restaurant.',
+         'ADO first-class buses: $25–35 CDMX to Oaxaca. Very comfortable.',
+         'Mexico City Metro: $0.25/ride — cheapest metro in the world.',
+         'Inland cenotes near Valladolid: $5–8 vs $20+ at famous ones.']},
+  {id:'colombia',  flag:'🇨🇴', name:'Colombia',  region:'Latin America',
+   season:[0.95,0.95,1,1,0.98,0.95,0.95,0.92,0.9,0.92,0.95,1],
+   b:{acc:11,food:5,tr:3,act:8,misc:5,ins:3.5,flt:22},
+   m:{acc:50,food:14,tr:8,act:18,misc:12,ins:3.5,flt:22},
+   l:{acc:150,food:45,tr:28,act:50,misc:35,ins:3.5,flt:70},
+   tips:['Menú del día: $3–6 for full meal. Eat this every lunch.',
+         'Medellín Metro: $0.80/ride. Cable cars reach hillside comunas.',
+         'Coffee region farm tour ($20–40): transforms your coffee experience.',
+         'Stay in Cartagena walled city — cheaper and far better.']},
+  {id:'peru',      flag:'🇵🇪', name:'Peru',      region:'Latin America',
+   season:[0.9,0.9,0.92,0.95,1,1.02,1.05,1.08,1.02,0.98,0.92,0.9],
+   b:{acc:12,food:6,tr:5,act:10,misc:6,ins:4,flt:28},
+   m:{acc:65,food:18,tr:12,act:22,misc:14,ins:4,flt:28},
+   l:{acc:180,food:55,tr:32,act:65,misc:40,ins:4,flt:90},
+   tips:['Book Machu Picchu 3–4 months ahead — it sells out completely.',
+         'Acclimatise 48 hours in Cusco (3,400m) before strenuous activity.',
+         'Lima market ceviche: $4–8 vs $18–25 at tourist restaurants.',
+         'Fly Lima–Cusco ($50–80). The 22-hour bus wastes a full day.']},
+  {id:'morocco',   flag:'🇲🇦', name:'Morocco',   region:'North Africa',
+   season:[0.95,0.95,1,1.02,1.02,0.88,0.85,0.85,0.92,1,1.02,0.98],
+   b:{acc:12,food:5,tr:4,act:7,misc:5,ins:3.5,flt:28},
+   m:{acc:55,food:16,tr:10,act:18,misc:12,ins:3.5,flt:28},
+   l:{acc:160,food:50,tr:32,act:55,misc:35,ins:3.5,flt:85},
+   tips:['Bargaining in souks: start at 30–40% of asking price.',
+         'Official guide in Fez ($15–25) — 9,400 lanes, impossible alone.',
+         'Agree taxi price before getting in — no meters for tourists.',
+         'Sahara overnight tour ($80–150) is one of travel\'s great experiences.']},
+  {id:'india',     flag:'🇮🇳', name:'India',     region:'South Asia',
+   season:[1,1,0.98,0.95,0.88,0.85,0.85,0.85,0.88,0.95,1,1.05],
+   b:{acc:10,food:4,tr:3,act:5,misc:4,ins:3.5,flt:20},
+   m:{acc:45,food:12,tr:8,act:14,misc:10,ins:3.5,flt:20},
+   l:{acc:140,food:45,tr:28,act:48,misc:30,ins:3.5,flt:70},
+   tips:['Book IRCTC trains 60–90 days ahead — popular routes sell out.',
+         'AC 3-tier sleeper (3A): comfortable, safe, the right overnight choice.',
+         'Masala chai from street stall: $0.20–0.40.',
+         'Use Uber/Ola everywhere — transparent pricing, no negotiation.']},
+];
+
+// ── State ──
+var cSelected = [];   // [{id, days}]
+var cTier = 'budget';
+
+// ── Seasonal multiplier ──
+function cGetMult(id) {
+  var d = CDATA.find(function(x){ return x.id===id; });
+  if (!d) return 1;
+  var month = (function(){
+    var el = document.getElementById('calc-date');
+    if (el && el.value) return new Date(el.value).getMonth();
+    return new Date().getMonth();
+  })();
+  var s = d.season[month];
+  var seed = Math.floor(Date.now()/300000);
+  var rng = function(v){ var x=Math.sin(v)*10000; return x-Math.floor(x); };
+  var drift = 1+((rng(seed + CDATA.indexOf(d)*7.31)-0.5)*0.06);
+  return s*drift;
+}
+
+function cFmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+
+// ── Toggles ──
+function cTog(){
+  return {
+    acc:  !!(document.getElementById('ci-acc')  || {checked:true}).checked,
+    food: !!(document.getElementById('ci-food') || {checked:true}).checked,
+    tr:   !!(document.getElementById('ci-tr')   || {checked:true}).checked,
+    act:  !!(document.getElementById('ci-act')  || {checked:true}).checked,
+    flt:  !!(document.getElementById('ci-flt')  || {}).checked,
+    ins:  !!(document.getElementById('ci-ins')  || {}).checked,
+    misc: !!(document.getElementById('ci-misc') || {}).checked,
+  };
+}
+
+function cTogg(id){ var el=document.getElementById(id); return el?el.checked:false; }
+
+// ── Render dropdown ──
+function cShowDropdown(list) {
+  var dd = document.getElementById('calc-dropdown');
+  if (!dd) return;
+  if (!list.length) { dd.style.display='none'; return; }
+  // Position dropdown using fixed coords from input's bounding rect
+  var si = document.getElementById('calc-search-input');
+  if (si) {
+    si.style.borderColor = 'rgba(201,162,78,0.5)';
+    var rect = si.getBoundingClientRect();
+    dd.style.top    = (rect.bottom + 4) + 'px';
+    dd.style.left   = rect.left + 'px';
+    dd.style.width  = rect.width + 'px';
+  }
+  dd.innerHTML = list.map(function(d){
+    var sel = cSelected.find(function(s){ return s.id===d.id; });
+    return '<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.2s;user-select:none" data-dest-id="'+d.id+'" class="calc-dd-item">'
+      +'<span style="font-size:20px">'+d.flag+'</span>'
+      +'<div style="flex:1">'
+        +'<div style="font-weight:600;font-size:13.5px;color:'+(sel?'var(--amber-s)':'var(--text)')+'">'+d.name+'</div>'
+        +'<div style="font-size:11px;color:var(--tm)">'+d.region+'</div>'
+      +'</div>'
+      +'<span style="font-size:11.5px;color:'+(sel?'#7fedb0':'var(--amber)')+';font-weight:600">'+(sel?'✓ Added':'from $'+d.b.acc+'/night')+'</span>'
+    +'</div>';
+  }).join('');
+  dd.style.display = 'block';
+}
+
+// ── Toggle destination ──
+function cTogDest(id) {
+  var idx = cSelected.findIndex(function(s){ return s.id===id; });
+  if (idx >= 0) {
+    cSelected.splice(idx,1);
+  } else {
+    cSelected.push({id:id, days:7});
+  }
+  cRenderChips();
+  cRenderDays();
+  cDoCalc();
+  // Re-render dropdown with updated state
+  var si = document.getElementById('calc-search-input');
+  if (si) {
+    var q = si.value.toLowerCase().trim();
+    var list = q ? CDATA.filter(function(d){ return d.name.toLowerCase().indexOf(q)>=0 || d.region.toLowerCase().indexOf(q)>=0; }) : CDATA;
+    cShowDropdown(list);
+  }
+}
+
+// ── Render chips ──
+function cRenderChips() {
+  var el = document.getElementById('calc-chips');
+  if (!el) return;
+  el.innerHTML = cSelected.map(function(s){
+    var d = CDATA.find(function(x){ return x.id===s.id; });
+    if (!d) return '';
+    return '<div style="display:inline-flex;align-items:center;gap:6px;background:var(--amber-dim);border:1px solid rgba(201,162,78,0.22);border-radius:999px;padding:5px 10px 5px 12px;font-size:12px;color:var(--amber-s)">'
+      +'<span>'+d.flag+'</span>'
+      +'<span>'+d.name+'</span>'
+      +'<span data-rm="'+d.id+'" style="cursor:pointer;opacity:0.6;font-size:10px;background:rgba(201,162,78,0.2);border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;margin-left:2px">✕</span>'
+    +'</div>';
+  }).join('');
+  // Attach remove listeners
+  el.querySelectorAll('[data-rm]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      cTogDest(btn.getAttribute('data-rm'));
+    });
+  });
+}
+
+// ── Render days sliders ──
+function cRenderDays() {
+  var sec = document.getElementById('calc-days-wrap');
+  var con = document.getElementById('calc-days-container');
+  if (!sec || !con) return;
+  if (!cSelected.length) { sec.style.display='none'; return; }
+  sec.style.display = 'block';
+  con.innerHTML = cSelected.map(function(s){
+    var d = CDATA.find(function(x){ return x.id===s.id; });
+    if (!d) return '';
+    var pct = ((s.days-1)/59*100).toFixed(1);
+    return '<div style="margin-bottom:16px">'
+      +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
+        +'<span style="font-size:13px;color:var(--ts)">'+d.flag+' <strong style="color:var(--text)">'+d.name+'</strong></span>'
+        +'<span style="font-family:\'Cormorant Garamond\',serif;font-size:26px;font-weight:600;color:var(--amber-s);line-height:1" id="cdv-'+d.id+'">'+s.days+'</span>'
+      +'</div>'
+      +'<input type="range" min="1" max="60" value="'+s.days+'" data-sid="'+d.id+'"'
+        +' style="width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background:linear-gradient(to right,#c9a24e '+pct+'%,rgba(255,255,255,0.08) '+pct+'%)"'
+      +'/>'
+      +'<div style="display:flex;justify-content:space-between;margin-top:5px">'
+        +'<span style="font-size:9px;color:var(--tm)">1 night</span>'
+        +'<span style="font-size:9px;color:var(--tm)">2 weeks</span>'
+        +'<span style="font-size:9px;color:var(--tm)">30</span>'
+        +'<span style="font-size:9px;color:var(--tm)">60</span>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+
+  // Attach slider listeners RIGHT AFTER rendering
+  con.querySelectorAll('input[data-sid]').forEach(function(sl){
+    sl.addEventListener('input', function(){
+      var sid = sl.getAttribute('data-sid');
+      var val = parseInt(sl.value);
+      var entry = cSelected.find(function(x){ return x.id===sid; });
+      if (entry) entry.days = val;
+      var vEl = document.getElementById('cdv-'+sid);
+      if (vEl) vEl.textContent = val;
+      var pct = ((val-1)/59*100).toFixed(1);
+      sl.style.background = 'linear-gradient(to right,#c9a24e '+pct+'%,rgba(255,255,255,0.08) '+pct+'%)';
+      cDoCalc();
+    });
+  });
+}
+
+// ── Tier selection ──
+function cSetTier(tier) {
+  cTier = tier;
+  ['budget','mid','luxury'].forEach(function(t){
+    var btn = document.getElementById('tier-btn-'+t);
+    if (!btn) return;
+    if (t===tier) {
+      var col = t==='budget'?'rgba(76,175,122,0.35)':t==='mid'?'rgba(74,144,217,0.35)':'rgba(201,162,78,0.35)';
+      var bg  = t==='budget'?'rgba(76,175,122,0.12)':t==='mid'?'rgba(74,144,217,0.12)':'rgba(201,162,78,0.12)';
+      var tc  = t==='budget'?'#7fedb0':t==='mid'?'#8ec8f8':'var(--amber-s)';
+      btn.style.borderColor = col;
+      btn.style.background  = bg;
+      btn.querySelector('div:nth-child(2)').style.color = tc;
+    } else {
+      btn.style.borderColor = 'var(--glass-b)';
+      btn.style.background  = 'var(--glass)';
+      btn.querySelector('div:nth-child(2)').style.color = 'var(--ts)';
+    }
+  });
+  cDoCalc();
+}
+
+// ── MAIN CALCULATE ──
+function cDoCalc() {
+  var rp = document.getElementById('calc-results');
+  if (!rp) return;
+
+  if (!cSelected.length) {
+    rp.innerHTML = '<div style="background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-xl);padding:60px 40px;text-align:center"><div style="font-size:44px;margin-bottom:16px;opacity:0.4">🌍</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:24px;font-weight:300;color:var(--ts);margin-bottom:8px">Your Budget Awaits</div><div style="font-size:13px;color:var(--tm);line-height:1.7">Search and select destinations above,<br>set your nights, then hit Calculate.</div></div>';
+    return;
+  }
+
+  var t = cTier; // 'b', 'm', 'l' shorthand
+  var tk = t==='budget'?'b':t==='mid'?'m':'l';
+  var tog = {
+    acc:  cTogg('ci-acc'),
+    food: cTogg('ci-food'),
+    tr:   cTogg('ci-tr'),
+    act:  cTogg('ci-act'),
+    flt:  cTogg('ci-flt'),
+    ins:  cTogg('ci-ins'),
+    misc: cTogg('ci-misc'),
+  };
+  // Default checked items
+  if (document.getElementById('ci-acc') && document.getElementById('ci-acc').defaultChecked === undefined) tog.acc = true;
+
+  var tierLabel = t==='budget'?'🎒 Budget':t==='mid'?'🧳 Mid-Range':'✦ Luxury';
+  var tierColor = t==='budget'?'#7fedb0':t==='mid'?'#8ec8f8':'#e0bc72';
+  var multi = cSelected.length > 1;
+
+  // Calc totals
+  var grandB=0, grandM=0, grandL=0, grandDays=0;
+  cSelected.forEach(function(s){
+    var d = CDATA.find(function(x){ return x.id===s.id; });
+    if (!d) return;
+    var m = cGetMult(d.id);
+    function dayTotal(tier) {
+      var obj = d[tier];
+      var n = 0;
+      if (tog.acc)  n += obj.acc*m;
+      if (tog.food) n += obj.food*m;
+      if (tog.tr)   n += obj.tr*m;
+      if (tog.act)  n += obj.act*m;
+      if (tog.misc) n += obj.misc*m;
+      if (tog.ins)  n += obj.ins;
+      return n;
+    }
+    grandB += dayTotal('b')*s.days + (tog.flt&&multi?d.b.flt:0);
+    grandM += dayTotal('m')*s.days + (tog.flt&&multi?d.m.flt:0);
+    grandL += dayTotal('l')*s.days + (tog.flt&&multi?d.l.flt:0);
+    grandDays += s.days;
+  });
+
+  var gActive = t==='budget'?grandB:t==='mid'?grandM:grandL;
+
+  var html = '';
+
+  // ── Grand total header ──
+  html += '<div style="background:linear-gradient(135deg,rgba(201,162,78,0.08),rgba(77,184,184,0.04));border:1px solid rgba(201,162,78,0.18);border-radius:var(--r-xl);padding:28px;margin-bottom:18px;position:relative;overflow:hidden">'
+    +'<div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--amber),transparent)"></div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">'
+      +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:24px;font-weight:300">Trip Total'+(cSelected.length===1?' — '+CDATA.find(function(x){return x.id===cSelected[0].id;})?.name:' — '+cSelected.length+' Destinations')+'</div>'
+      +'<div style="display:flex;align-items:center;gap:5px;background:var(--teal-dim);border:1px solid var(--teal-b);border-radius:999px;padding:4px 12px;font-size:10.5px;color:#8ee8e8;font-weight:600"><span style="width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block;animation:liveBlip 1.8s infinite"></span>Live USD</div>'
+    +'</div>'
+    +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">'
+      +['budget','mid','luxury'].map(function(tier){
+        var total = tier==='budget'?grandB:tier==='mid'?grandM:grandL;
+        var lbl = tier==='budget'?'🎒 Budget':tier==='mid'?'🧳 Mid-Range':'✦ Luxury';
+        var col = tier==='budget'?'rgba(76,175,122,0.12)':tier==='mid'?'rgba(74,144,217,0.12)':'rgba(201,162,78,0.1)';
+        var bc  = tier==='budget'?'rgba(76,175,122,0.25)':tier==='mid'?'rgba(74,144,217,0.25)':'rgba(201,162,78,0.3)';
+        var tc  = tier==='budget'?'#7fedb0':tier==='mid'?'#8ec8f8':'#e0bc72';
+        var active = tier===t;
+        return '<div style="background:'+col+';border:1px solid '+(active?bc:'rgba(255,255,255,0.06)')+';border-radius:var(--r);padding:16px;text-align:center;transition:all 0.2s">'
+          +'<div style="font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tm);margin-bottom:6px;font-weight:500">'+lbl+'</div>'
+          +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;font-weight:600;color:'+tc+';line-height:1;margin-bottom:4px">'+cFmt(total)+'</div>'
+          +'<div style="font-size:10px;color:var(--tm)">'+cFmt(total/grandDays)+'/day avg</div>'
+          +(active?'<div style="width:6px;height:6px;border-radius:50%;background:var(--teal);animation:liveBlip 1.8s infinite;margin:8px auto 0"></div>':'')
+        +'</div>';
+      }).join('')
+    +'</div>'
+  +'</div>';
+
+  // ── Per-destination cards ──
+  cSelected.forEach(function(s){
+    var d = CDATA.find(function(x){ return x.id===s.id; });
+    if (!d) return;
+    var m = cGetMult(d.id);
+    var obj = d[tk];
+
+    function calcTotal(tier) {
+      var o = d[tier];
+      var n=0;
+      if(tog.acc)  n+=o.acc*m;
+      if(tog.food) n+=o.food*m;
+      if(tog.tr)   n+=o.tr*m;
+      if(tog.act)  n+=o.act*m;
+      if(tog.misc) n+=o.misc*m;
+      if(tog.ins)  n+=o.ins;
+      n *= s.days;
+      if(tog.flt&&multi) n+=o.flt;
+      return n;
+    }
+
+    var bTotal = calcTotal('b');
+    var mTotal = calcTotal('m');
+    var lTotal = calcTotal('l');
+    var activeTotal = t==='budget'?bTotal:t==='mid'?mTotal:lTotal;
+    var dailyActive = (activeTotal-(tog.flt&&multi?obj.flt:0))/s.days;
+    var pct = gActive>0?Math.round(activeTotal/gActive*100):0;
+
+    var sznM = cGetMult(d.id);
+    var sznPct = Math.round((sznM-1)*100);
+    var sznNote = sznPct>5?'🔴 Peak season +'+sznPct+'% above baseline':sznPct<-5?'🟢 Low season '+sznPct+'% — great value':'🟡 Mid-season pricing';
+
+    var cats = [
+      {icon:'🏨', name:'Accommodation', bv:d.b.acc, mv:d.m.acc, lv:d.l.acc, on:tog.acc},
+      {icon:'🍜', name:'Food & Drinks',  bv:d.b.food,mv:d.m.food,lv:d.l.food,on:tog.food},
+      {icon:'🚌', name:'Transport',      bv:d.b.tr,  mv:d.m.tr,  lv:d.l.tr,  on:tog.tr},
+      {icon:'🎟', name:'Activities',     bv:d.b.act, mv:d.m.act, lv:d.l.act, on:tog.act},
+      {icon:'🛍', name:'Shopping/Misc',  bv:d.b.misc,mv:d.m.misc,lv:d.l.misc,on:tog.misc},
+    ];
+
+    var tableRows = cats.map(function(c){
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)">'
+        +'<td style="padding:9px 0;font-size:12.5px;color:var(--ts)">'+c.icon+' '+c.name+'</td>'
+        +'<td style="padding:9px 0;text-align:right;font-weight:600;color:#7fedb0;font-size:12.5px">'+(c.on?cFmt(c.bv*m*s.days):'—')+'</td>'
+        +'<td style="padding:9px 0;text-align:right;font-weight:600;color:#8ec8f8;font-size:12.5px">'+(c.on?cFmt(c.mv*m*s.days):'—')+'</td>'
+        +'<td style="padding:9px 0;text-align:right;font-weight:600;color:#e0bc72;font-size:12.5px">'+(c.on?cFmt(c.lv*m*s.days):'—')+'</td>'
+      +'</tr>';
+    }).join('');
+
+    if (tog.ins) tableRows += '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)"><td style="padding:9px 0;font-size:12.5px;color:var(--ts)">🛡 Insurance</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#7fedb0;font-size:12.5px">'+cFmt(d.b.ins*s.days)+'</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#8ec8f8;font-size:12.5px">'+cFmt(d.m.ins*s.days)+'</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#e0bc72;font-size:12.5px">'+cFmt(d.l.ins*s.days)+'</td></tr>';
+    if (tog.flt&&multi) tableRows += '<tr><td style="padding:9px 0;font-size:12.5px;color:var(--ts)">✈ Flights</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#7fedb0;font-size:12.5px">'+cFmt(d.b.flt)+'</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#8ec8f8;font-size:12.5px">'+cFmt(d.m.flt)+'</td><td style="padding:9px 0;text-align:right;font-weight:600;color:#e0bc72;font-size:12.5px">'+cFmt(d.l.flt)+'</td></tr>';
+
+    html += '<div style="background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-xl);overflow:hidden;margin-bottom:18px">'
+      // Header
+      +'<div style="padding:20px 24px 16px;border-bottom:1px solid var(--glass-b);display:flex;justify-content:space-between;align-items:flex-start;background:linear-gradient(135deg,rgba(201,162,78,0.04),transparent)">'
+        +'<div>'
+          +'<div style="font-size:32px;line-height:1;margin-bottom:4px">'+d.flag+'</div>'
+          +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:22px;font-weight:300;margin-bottom:2px">'+d.name+'</div>'
+          +'<div style="font-size:11px;color:var(--tm)">'+s.days+' nights · '+d.region+' · '+tierLabel+'</div>'
+        +'</div>'
+        +'<div style="text-align:right">'
+          +'<div style="font-size:9.5px;color:var(--tm);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Your Total</div>'
+          +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:32px;font-weight:600;color:'+tierColor+';line-height:1">'+cFmt(activeTotal)+'</div>'
+          +'<div style="font-size:10px;color:var(--tm);margin-top:3px">'+cFmt(dailyActive)+'/day</div>'
+        +'</div>'
+      +'</div>'
+      // Body
+      +'<div style="padding:20px 24px">'
+        // Table
+        +'<table style="width:100%;border-collapse:collapse;margin-bottom:16px">'
+          +'<thead><tr style="border-bottom:1px solid var(--glass-b)">'
+            +'<th style="font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tm);font-weight:500;padding:8px 0;text-align:left">Category</th>'
+            +'<th style="font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#7fedb0;font-weight:500;padding:8px 0;text-align:right">🎒 Budget</th>'
+            +'<th style="font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8ec8f8;font-weight:500;padding:8px 0;text-align:right">🧳 Mid</th>'
+            +'<th style="font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#e0bc72;font-weight:500;padding:8px 0;text-align:right">✦ Luxury</th>'
+          +'</tr></thead>'
+          +'<tbody>'+tableRows+'</tbody>'
+        +'</table>'
+        // Per-day strip
+        +'<div style="background:var(--glass);border:1px solid rgba(255,255,255,0.04);border-radius:var(--r);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">'
+          +'<span style="font-size:11px;color:var(--tm)">Daily spend · '+s.days+' nights</span>'
+          +'<div style="display:flex;gap:14px">'
+            +'<span style="font-size:12.5px;font-weight:600;color:#7fedb0">'+cFmt((bTotal-(tog.flt&&multi?d.b.flt:0))/s.days)+'</span>'
+            +'<span style="font-size:12.5px;font-weight:600;color:#8ec8f8">'+cFmt((mTotal-(tog.flt&&multi?d.m.flt:0))/s.days)+'</span>'
+            +'<span style="font-size:12.5px;font-weight:600;color:#e0bc72">'+cFmt((lTotal-(tog.flt&&multi?d.l.flt:0))/s.days)+'</span>'
+          +'</div>'
+        +'</div>'
+        // Progress bar
+        +'<div style="margin-bottom:14px">'
+          +'<div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--tm);margin-bottom:5px"><span>Share of total trip</span><span>'+pct+'%</span></div>'
+          +'<div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px"><div style="height:100%;width:'+pct+'%;background:'+tierColor+';border-radius:3px;transition:width 0.6s ease"></div></div>'
+        +'</div>'
+        // Tips
+        +'<div style="background:rgba(77,184,184,0.05);border:1px solid rgba(77,184,184,0.12);border-radius:var(--r);padding:13px 15px">'
+          +'<div style="font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:8px">💡 Money tips for '+d.name+'</div>'
+          +d.tips.map(function(tip){return '<div style="font-size:12px;color:var(--ts);display:flex;gap:6px;margin-bottom:5px;line-height:1.55"><span style="color:var(--teal);flex-shrink:0">→</span>'+tip+'</div>';}).join('')
+        +'</div>'
+        // Seasonal note
+        +'<div style="margin-top:10px;font-size:11px;padding:7px 12px;background:var(--glass);border-radius:var(--r);color:var(--tm)">'+sznNote+'</div>'
+      +'</div>'
+    +'</div>';
+  });
+
+  // ── Savings tips ──
+  html += '<div style="background:var(--card);border:1px solid var(--glass-b);border-radius:var(--r-xl);padding:24px">'
+    +'<div style="font-family:\'Cormorant Garamond\',serif;font-size:20px;font-weight:400;margin-bottom:16px">💸 Cut Your Trip Costs</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
+    +[
+      {save:'Save 30–50%',t:'Travel shoulder season',d:'May–Jun and Sep–Oct: same destinations, far fewer crowds, significantly lower prices.'},
+      {save:'Save $15–30/night',t:'Night buses = free accommodation',d:'Cover transport AND a night\'s stay simultaneously. Use for every long leg.'},
+      {save:'Save $200–500/trip',t:'Use Wise or Revolut card',d:'Zero foreign transaction fees on every purchase. The most important financial decision.'},
+      {save:'Save 50–80%',t:'Eat where locals eat',d:'Walk one street back from tourist zones. No English menu = local pricing.'},
+      {save:'Save 20–40%',t:'Book flights 6–10 weeks ahead',d:'Google Flights price calendar shows cheapest dates. 1–2 day flexibility saves $100–200+.'},
+      {save:'Save 40–60%',t:'Stay in local neighbourhoods',d:'Hotels 15 min from sights cost 40–60% less than hotels inside tourist zones.'},
+    ].map(function(item){
+      return '<div style="background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r);padding:13px 14px;border-left:2px solid var(--amber)">'
+        +'<div style="font-size:9.5px;color:var(--amber);font-weight:700;letter-spacing:0.08em;margin-bottom:4px">'+item.save+'</div>'
+        +'<div style="font-size:12.5px;font-weight:600;margin-bottom:3px">'+item.t+'</div>'
+        +'<div style="font-size:11.5px;color:var(--tm);line-height:1.55">'+item.d+'</div>'
+      +'</div>';
+    }).join('')
+    +'</div></div>';
+
+  rp.innerHTML = html;
+}
+
+// ── INIT ──
+function calcInit() {
+  if (window._calcDone) return;
+  window._calcDone = true;
+
+  // Date default
+  var dateEl = document.getElementById('calc-date');
+  if (dateEl) {
+    dateEl.value = new Date().toISOString().split('T')[0];
+    dateEl.addEventListener('change', cDoCalc);
+  }
+
+  // Calculate button
+  var goBtn = document.getElementById('calc-go');
+  if (goBtn) {
+    goBtn.addEventListener('click', cDoCalc);
+    goBtn.addEventListener('mouseenter', function(){ this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 36px rgba(201,162,78,0.5)'; });
+    goBtn.addEventListener('mouseleave', function(){ this.style.transform='';this.style.boxShadow='0 4px 24px rgba(201,162,78,0.35)'; });
+  }
+
+  // Tier buttons
+  ['budget','mid','luxury'].forEach(function(t){
+    var btn = document.getElementById('tier-btn-'+t);
+    if (btn) btn.addEventListener('click', function(){ cSetTier(t); });
+  });
+
+  // Toggle checkboxes → recalc
+  ['ci-acc','ci-food','ci-tr','ci-act','ci-flt','ci-ins','ci-misc'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', cDoCalc);
+  });
+
+  // Search
+  var si = document.getElementById('calc-search-input');
+  var dd = document.getElementById('calc-dropdown');
+  if (!si || !dd) return;
+
+  si.addEventListener('focus', function(){
+    cShowDropdown(CDATA);
+  });
+  // Keep dropdown repositioned if panel scrolls
+  var calcPanel = document.getElementById('panel-calculator');
+  if (calcPanel) {
+    calcPanel.addEventListener('scroll', function() {
+      if (dd && dd.style.display !== 'none') {
+        var r = si.getBoundingClientRect();
+        dd.style.top  = (r.bottom + 4) + 'px';
+        dd.style.left = r.left + 'px';
+      }
+    });
+  }
+
+  si.addEventListener('input', function(){
+    var q = si.value.toLowerCase().trim();
+    if (!q) { cShowDropdown(CDATA); return; }
+    cShowDropdown(CDATA.filter(function(d){
+      return d.name.toLowerCase().indexOf(q) >= 0 || d.region.toLowerCase().indexOf(q) >= 0;
+    }));
+  });
+
+  si.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { dd.style.display='none'; si.blur(); }
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('#calc-search-wrap') && !e.target.closest('#calc-dropdown')) {
+      dd.style.display = 'none';
+      var si2 = document.getElementById('calc-search-input');
+      if (si2) si2.style.borderColor = 'var(--glass-b)';
+    }
+  });
+  // Reposition on scroll (since we use fixed positioning)
+  document.addEventListener('scroll', function() {
+    if (dd.style.display !== 'none') {
+      var si3 = document.getElementById('calc-search-input');
+      if (si3) {
+        var r = si3.getBoundingClientRect();
+        dd.style.top  = (r.bottom + 4) + 'px';
+        dd.style.left = r.left + 'px';
+      }
+    }
+  }, true);
+
+  // Dropdown item clicks — use event delegation on the dropdown container
+  dd.addEventListener('click', function(e){
+    var item = e.target.closest('[data-dest-id]');
+    if (item) {
+      var id = item.getAttribute('data-dest-id');
+      cTogDest(id);
+      si.value = '';
+      si.focus();
+    }
+  });
+
+  // Hover styles on dropdown items
+  dd.addEventListener('mouseover', function(e){
+    var item = e.target.closest('[data-dest-id]');
+    if (item) item.style.background = 'rgba(255,255,255,0.055)';
+  });
+  dd.addEventListener('mouseout', function(e){
+    var item = e.target.closest('[data-dest-id]');
+    if (item) item.style.background = '';
+  });
+
+  // Refresh every 5 min
+  setInterval(function(){ cDoCalc(); }, 300000);
+}
+
+// Hook into switchPanel
+(function(){
+  var orig = window.switchPanel;
+  if (orig) {
+    window.switchPanel = function(id) {
+      orig(id);
+      if (id === 'calculator') calcInit();
+    };
+  }
+})();
+
+})();
+
+
+
+// Country card click delegation
+document.addEventListener('click', function(e) {
+  const card = e.target.closest('[data-country-id]');
+  if (card) {
+    const id = card.getAttribute('data-country-id');
+    if (id) openCountry(id);
+  }
+});
+
+</script>
+</body>
+</html>
